@@ -1,0 +1,170 @@
+<div class="spots-container">
+  <!-- Header avec titre et actions -->
+  <div class="spots-header">
+    <div class="header-content">
+      <h2 class="spots-title">Liste des prestations</h2>
+      <span class="spots-count">{{ services().length }} prestation(s)</span>
+    </div>
+    <button [routerLink]="['..', 'new']" class="btn btn-premium">
+      <span class="btn-icon">+</span>
+      Ajouter une prestation
+    </button>
+  </div>
+
+  <!-- Table responsive -->
+  <div class="table-wrapper">
+    <table class="spots-table">
+      <thead>
+      <tr>
+        <th class="col-id">ID</th>
+        <th class="col-name">Nom</th>
+        <th class="col-address xs-hide">Type</th>
+        <th class="col-address xs-hide">Durée</th>
+        <th class="col-address xs-hide">Prix</th>
+        <th class="col-status">Statut</th>
+        <th class="col-dates xs-hide">Dates</th>
+        <th class="col-actions">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (service of services(); track service.id) {
+          <tr class="spot-row">
+            <!-- ID -->
+            <td class="col-id">
+              <span class="spot-id">#{{ service.id }}</span>
+            </td>
+
+            <!-- Nom -->
+            <td class="col-name">
+              <div class="spot-name-wrapper">
+                <span class="spot-name">{{ service.name }}</span>
+              </div>
+            </td>
+
+            <!-- Type -->
+            <td class="col-name">
+              <div class="spot-name-wrapper">
+                <span class="spot-name">{{ label[service.type!] }}</span>
+              </div>
+            </td>
+
+            <!-- Durée -->
+            <td class="col-name">
+              <div class="spot-name-wrapper">
+                <span class="spot-name">{{ service.durationMinutes | duration }}</span>
+              </div>
+            </td>
+
+            <!-- Prix -->
+            <td class="col-name">
+              <div class="spot-name-wrapper">
+                <span class="spot-name">{{ service.basePriceCents | price }}</span>
+              </div>
+            </td>
+
+            <!-- Statut -->
+            <td class="col-status">
+            <span
+              class="status-badge"
+              [class.status-active]="service.isActive"
+              [class.status-inactive]="!service.isActive"
+            >
+              {{ service.isActive ? "Actif" : "Inactif" }}
+            </span>
+            </td>
+
+            <!-- Dates -->
+            <td class="col-dates xs-hide">
+              <div class="dates-wrapper">
+              <span class="date-item">
+                <span class="date-label">Créé:</span>
+                {{ service.createdAt | date : "dd/MM/yyyy" }}
+              </span>
+                <span class="date-item">
+                <span class="date-label">MAJ:</span>
+                  {{ service.updatedAt | date : "dd/MM/yyyy" }}
+              </span>
+              </div>
+            </td>
+
+            <!-- Actions -->
+            <td class="col-actions">
+              <div class="action-buttons">
+                <button
+                  [routerLink]="['..', service.id, 'edit']"
+                  class="btn-action btn-action-edit"
+                  title="Modifier"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                  </svg>
+                  <span class="xs-hide">Modifier</span>
+                </button>
+                <button
+                  (click)="openDeleteModal(service.id, service.name)"
+                  class="btn-action btn-action-delete"
+                  title="Supprimer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M3 6h18" />
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                  </svg>
+                  <span class="xs-hide">Supprimer</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr class="empty-row">
+            <td colspan="7" class="empty-state">
+              <div class="empty-content">
+                <div class="empty-icon">🛹</div>
+                <h3 class="empty-title">Aucune prestation disponible</h3>
+                <p class="empty-text">
+                  Commencez par ajouter votre première prestation de skateboard
+                </p>
+                <button [routerLink]="['..', 'new']" class="btn btn-premium">
+                  Créer une prestation
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-confirmation-modal
+  [isOpen]="deleteModal.isOpen"
+  [type]="'delete'"
+  [title]="'Supprimer la prestation'"
+  [message]="'Êtes-vous sûr de vouloir supprimer la prestation ' + deleteModal.serviceName + ' ? Cette action est irréversible.'"
+  [confirmText]="'Supprimer'"
+  [cancelText]="'Annuler'"
+  [isLoading]="deleteModal.isLoading"
+  (confirm)="confirmDelete()"
+  (cancel)="closeDeleteModal()"
+  (close)="closeDeleteModal()"
+/>

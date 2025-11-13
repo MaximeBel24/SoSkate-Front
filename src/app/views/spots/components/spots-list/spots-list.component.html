@@ -1,0 +1,175 @@
+<div class="spots-container">
+  <!-- Header avec titre et actions -->
+  <div class="spots-header">
+    <div class="header-content">
+      <h2 class="spots-title">Liste des spots</h2>
+      <span class="spots-count">{{ spots().length }} spot(s)</span>
+    </div>
+    <button [routerLink]="['..', 'new']" class="btn btn-premium">
+      <span class="btn-icon">+</span>
+      Ajouter un spot
+    </button>
+  </div>
+
+  <!-- Table responsive -->
+  <div class="table-wrapper">
+    <table class="spots-table">
+      <thead>
+        <tr>
+          <th class="col-id">ID</th>
+          <th class="col-name">Nom</th>
+          <th class="col-address xs-hide">Adresse</th>
+          <th class="col-coords xs-hide">Coordonnées</th>
+          <th class="col-status">Statut</th>
+          <th class="col-dates xs-hide">Dates</th>
+          <th class="col-actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (spot of spots(); track spot.id) {
+        <tr class="spot-row">
+          <!-- ID -->
+          <td class="col-id">
+            <span class="spot-id">#{{ spot.id }}</span>
+          </td>
+
+          <!-- Nom -->
+          <td class="col-name">
+            <div class="spot-name-wrapper">
+              <span class="spot-name">{{ spot.name }}</span>
+              <span class="spot-type">
+                {{ spot.isIndoor ? "Intérieur" : "Extérieur" }}
+              </span>
+            </div>
+          </td>
+
+          <!-- Adresse -->
+          <td class="col-address xs-hide">
+            <div class="address-wrapper">
+              <span class="address-street">{{ spot.address }}</span>
+              <span class="address-city"
+                >{{ spot.zipCode }} {{ spot.city }}</span
+              >
+            </div>
+          </td>
+
+          <!-- Coordonnées -->
+          <td class="col-coords xs-hide">
+            <div class="coords-wrapper">
+              <span class="coord-item">
+                <span class="coord-label">Lat:</span>
+                {{ spot.latitude | number : "1.4-4" }}
+              </span>
+              <span class="coord-item">
+                <span class="coord-label">Lng:</span>
+                {{ spot.longitude | number : "1.4-4" }}
+              </span>
+            </div>
+          </td>
+
+          <!-- Statut -->
+          <td class="col-status">
+            <span
+              class="status-badge"
+              [class.status-active]="spot.isActive"
+              [class.status-inactive]="!spot.isActive"
+            >
+              {{ spot.isActive ? "Actif" : "Inactif" }}
+            </span>
+          </td>
+
+          <!-- Dates -->
+          <td class="col-dates xs-hide">
+            <div class="dates-wrapper">
+              <span class="date-item">
+                <span class="date-label">Créé:</span>
+                {{ spot.createdAt | date : "dd/MM/yyyy" }}
+              </span>
+              <span class="date-item">
+                <span class="date-label">MAJ:</span>
+                {{ spot.updatedAt | date : "dd/MM/yyyy" }}
+              </span>
+            </div>
+          </td>
+
+          <!-- Actions -->
+          <td class="col-actions">
+            <div class="action-buttons">
+              <button
+                [routerLink]="['..', spot.id, 'edit']"
+                class="btn-action btn-action-edit"
+                title="Modifier"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                </svg>
+                <span class="xs-hide">Modifier</span>
+              </button>
+              <button
+                (click)="openDeleteModal(spot.id, spot.name)"
+                class="btn-action btn-action-delete"
+                title="Supprimer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+                <span class="xs-hide">Supprimer</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+        } @empty {
+        <tr class="empty-row">
+          <td colspan="7" class="empty-state">
+            <div class="empty-content">
+              <div class="empty-icon">🛹</div>
+              <h3 class="empty-title">Aucun spot disponible</h3>
+              <p class="empty-text">
+                Commencez par ajouter votre premier spot de skateboard
+              </p>
+              <button [routerLink]="['..', 'new']" class="btn btn-premium">
+                Créer un spot
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-confirmation-modal
+  [isOpen]="deleteModal.isOpen"
+  [type]="'delete'"
+  [title]="'Supprimer le spot'"
+  [message]="'Êtes-vous sûr de vouloir supprimer le spot ' + deleteModal.spotName + ' ? Cette action est irréversible.'"
+  [confirmText]="'Supprimer'"
+  [cancelText]="'Annuler'"
+  [isLoading]="deleteModal.isLoading"
+  (confirm)="confirmDelete()"
+  (cancel)="closeDeleteModal()"
+  (close)="closeDeleteModal()"
+/>

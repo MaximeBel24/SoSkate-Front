@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  background-color: var(--primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  border-radius: var(--radius);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  padding: 6px 12px;
+  display: inline-block;
+}
+
+a:hover {
+  text-decoration: underline;
+}
