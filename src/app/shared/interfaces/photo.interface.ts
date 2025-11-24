@@ -1,15 +1,8 @@
-/**
- * Type d'entité pour l'upload de photos
- */
-export type PhotoEntityType = 'SPOT' | 'CUSTOMER' | 'INSTRUCTOR' | 'EVENT';
+import {PhotoEntityType} from '../models/photo.type';
+import {PhotoType} from '../models/photo.type';
 
 /**
- * Type de photo selon le contexte
- */
-export type PhotoType = 'AVATAR' | 'COVER' | 'GALLERY' | 'TRICK';
-
-/**
- * Réponse du backend après upload d'une photo
+ * Backend response after uploading a photo
  */
 export interface PhotoResponse {
   id: number;
@@ -31,7 +24,7 @@ export interface PhotoResponse {
 }
 
 /**
- * Requête pour uploader une photo
+ * Request to upload a photo
  */
 export interface PhotoUploadRequest {
   file: File;
@@ -43,7 +36,7 @@ export interface PhotoUploadRequest {
 }
 
 /**
- * Configuration pour le composant PhotoUploader
+ * Configuration for the PhotoUploader component
  */
 export interface PhotoUploaderConfig {
   entityType: PhotoEntityType;

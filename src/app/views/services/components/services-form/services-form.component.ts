@@ -7,7 +7,7 @@ import {ServiceService} from '../../../../shared/services/service.service';
 import {ServiceRequest} from '../../../../shared/interfaces/service.interface';
 import {PricePipe} from '../../../../shared/pipes/price.pipe';
 import {DurationPipe} from '../../../../shared/pipes/duration.pipe';
-import {ServiceType, ServiceTypeLabel} from '../../../../shared/models/service-type';
+import {ServiceType, ServiceTypeLabel} from '../../../../shared/models/service.type';
 import {SpotRequest} from '../../../../shared/interfaces/spot.interface';
 import {ConfirmationModalComponent} from '../../../../components/confirmation-modal/confirmation-modal.component';
 

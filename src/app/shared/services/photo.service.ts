@@ -1,14 +1,14 @@
-import { inject, Injectable } from '@angular/core';
+import {inject, Injectable, resource} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import {
   PhotoConstraints,
-  PhotoEntityType,
   PhotoResponse,
-  PhotoType,
   PhotoValidationResult,
 } from '../interfaces/photo.interface';
 import {environment} from '../../../environments/environment.development';
+import {PhotoEntityType, PhotoType} from '../models/photo.type';
+import {SpotResponse} from '../interfaces/spot.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -127,6 +127,15 @@ export class PhotoService {
   }
 
   /**
+   * Retrieve photos from a specific spot
+   */
+  async getSpotPhotos(spotId: number): Promise<PhotoResponse[]> {
+    return firstValueFrom(
+      this.http.get<PhotoResponse[]>(`${this.API_URL}/spots/${spotId}`)
+    );
+  }
+
+  /**
    * Upload multiple photos en séquence
    */
   async uploadMultiplePhotos(
@@ -166,33 +175,34 @@ export class PhotoService {
    * Supprime une photo (soft delete)
    */
   async deletePhoto(photoId: number, deletedBy?: number): Promise<void> {
-    // const params = deletedBy ? { deletedBy: deletedBy.toString() } : {};
-    // return firstValueFrom(
-      this.http.delete<void>(`${this.API_URL}/${photoId}`
-        // , { params }
-      )
-    // );
+    const params: Record<string, string> = deletedBy
+      ? { deletedBy: deletedBy.toString() }
+      : {};
+
+    await firstValueFrom(
+      this.http.delete<void>(`${this.API_URL}/${photoId}`, { params })
+    );
   }
 
-  /**
-   * Récupère les photos d'une entité spécifique
-   */
-  async getPhotosByEntity(
-    entityType: PhotoEntityType,
-    entityId: number,
-    photoType?: PhotoType
-  ): Promise<PhotoResponse[]> {
-    const params: any = {
-      entityType,
-      entityId: entityId.toString(),
-    };
-
-    if (photoType) {
-      params.photoType = photoType;
-    }
-
-    return firstValueFrom(this.http.get<PhotoResponse[]>(this.API_URL, { params }));
-  }
+  // /**
+  //  * Récupère les photos d'une entité spécifique
+  //  */
+  // async getPhotosByEntity(
+  //   entityType: PhotoEntityType,
+  //   entityId: number,
+  //   photoType?: PhotoType
+  // ): Promise<PhotoResponse[]> {
+  //   const params: Record<string, string> = {
+  //     entityType,
+  //     entityId: entityId.toString(),
+  //   };
+  //
+  //   if (photoType) {
+  //     params.photoType = photoType;
+  //   }
+  //
+  //   return firstValueFrom(this.http.get<PhotoResponse[]>(this.API_URL, { params }));
+  // }
 
   /**
    * Formate la taille d'un fichier en format lisible

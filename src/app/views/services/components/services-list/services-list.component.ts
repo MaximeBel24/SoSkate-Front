@@ -2,7 +2,7 @@ import {Component, computed, inject} from '@angular/core';
 import {ServiceService} from '../../../../shared/services/service.service';
 import {DatePipe, DecimalPipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
-import {ServiceTypeLabel} from '../../../../shared/models/service-type';
+import {ServiceTypeLabel} from '../../../../shared/models/service.type';
 import {DurationPipe} from '../../../../shared/pipes/duration.pipe';
 import {PricePipe} from '../../../../shared/pipes/price.pipe';
 import {ConfirmationModalComponent} from '../../../../components/confirmation-modal/confirmation-modal.component';
