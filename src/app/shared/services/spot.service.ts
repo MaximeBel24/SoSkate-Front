@@ -15,7 +15,7 @@ export class SpotService {
     loader: async (): Promise<SpotResponse[]> => (await  fetch(this.baseUrl)).json(),
   })
 
-  async createSpot(spotToCreate: SpotRequest) {
+  async createSpot(spotToCreate: SpotRequest): Promise<SpotResponse> {
     const response = await fetch(`${this.baseUrl}`, {
       method: 'POST',
       body: JSON.stringify(spotToCreate),
@@ -29,9 +29,10 @@ export class SpotService {
     } else {
       throw new Error(body);
     }
+    return body;
   }
 
-  async updateSpot(spotId: number, spotToUpdate: SpotRequest) {
+  async updateSpot(spotId: number, spotToUpdate: SpotRequest): Promise<SpotResponse> {
     const response = await fetch(`${this.baseUrl}/${spotId}`, {
       method: 'PUT',
       body: JSON.stringify(spotToUpdate),
@@ -45,6 +46,7 @@ export class SpotService {
     } else {
       throw new Error(body)
     }
+    return body;
   }
 
   async deleteSpot(spotId: number) {
