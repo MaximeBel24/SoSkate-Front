@@ -7,8 +7,9 @@
 // 3. Theme (styles de base)
 // 4. Components (composants UI)
 // 5. Tables (styles de tableaux)
-// 6. Animations (keyframes et animations)
-// 7. Utils (classes utilitaires - en dernier pour override)
+// 6. Forms (styles de formulaires)
+// 7. Animations (keyframes et animations)
+// 8. Utils (classes utilitaires - en dernier pour override)
 // ============================================
 
 @use "./styles/variables";
@@ -16,5 +17,6 @@
 @use "./styles/theme";
 @use "./styles/components";
 @use "./styles/tables";
+@use "./styles/forms";
 @use "./styles/animations";
 @use "./styles/utils";

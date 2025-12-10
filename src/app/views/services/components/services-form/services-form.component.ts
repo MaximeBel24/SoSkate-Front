@@ -10,6 +10,14 @@ import {DurationPipe} from '../../../../shared/pipes/duration.pipe';
 import {ServiceType, ServiceTypeLabel} from '../../../../shared/models/service.type';
 import {SpotRequest} from '../../../../shared/interfaces/spot.interface';
 import {ConfirmationModalComponent} from '../../../../components/confirmation-modal/confirmation-modal.component';
+import {IconAlertCircleComponent} from '../../../../components/icons/icon-alert-circle/icon-alert-circle.component';
+import {IconCheckComponent} from '../../../../components/icons/icon-check/icon-check.component';
+import {IconArrowLeftComponent} from '../../../../components/icons/icon-arrow-left/icon-arrow-left.component';
+import {IconBanComponent} from '../../../../components/icons/icon-ban/icon-ban.component';
+import {IconCheckCircleComponent} from '../../../../components/icons/icon-check-circle/icon-check-circle.component';
+import {IconActivityComponent} from '../../../../components/icons/icon-activity/icon-activity.component';
+import {IconDollarComponent} from '../../../../components/icons/icon-dollar/icon-dollar.component';
+import {IconInfoComponent} from '../../../../components/icons/icon-info/icon-info.component';
 
 @Component({
   selector: 'app-services-form',
@@ -18,7 +26,15 @@ import {ConfirmationModalComponent} from '../../../../components/confirmation-mo
     RouterLink,
     DurationPipe,
     PricePipe,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    IconAlertCircleComponent,
+    IconCheckComponent,
+    IconArrowLeftComponent,
+    IconBanComponent,
+    IconCheckCircleComponent,
+    IconActivityComponent,
+    IconDollarComponent,
+    IconInfoComponent
   ],
   templateUrl: './services-form.component.html',
   styleUrl: './services-form.component.scss'

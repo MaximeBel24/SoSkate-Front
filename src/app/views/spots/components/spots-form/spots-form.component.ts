@@ -11,6 +11,17 @@ import { PhotoUploaderComponent } from '../../../../components/photo-uploader/ph
 import { PhotoResponse } from '../../../../shared/interfaces/photo.interface';
 import { PhotoEntityType, PhotoType } from '../../../../shared/models/photo.type';
 import {PhotoService} from '../../../../shared/services/photo.service';
+import {IconAlertCircleComponent} from '../../../../components/icons/icon-alert-circle/icon-alert-circle.component';
+import {IconCheckComponent} from '../../../../components/icons/icon-check/icon-check.component';
+import {IconImageComponent} from '../../../../components/icons/icon-image/icon-image.component';
+import {IconArrowLeftComponent} from '../../../../components/icons/icon-arrow-left/icon-arrow-left.component';
+import {IconBanComponent} from '../../../../components/icons/icon-ban/icon-ban.component';
+import {IconCheckCircleComponent} from '../../../../components/icons/icon-check-circle/icon-check-circle.component';
+import {IconHomeComponent} from '../../../../components/icons/icon-home/icon-home.component';
+import {IconSunComponent} from '../../../../components/icons/icon-sun/icon-sun.component';
+import {IconActivityComponent} from '../../../../components/icons/icon-activity/icon-activity.component';
+import {IconLocationComponent} from '../../../../components/icons/icon-location/icon-location.component';
+import {IconInfoComponent} from '../../../../components/icons/icon-info/icon-info.component';
 
 @Component({
   selector: 'app-spots-form',
@@ -20,6 +31,17 @@ import {PhotoService} from '../../../../shared/services/photo.service';
     CommonModule,
     ConfirmationModalComponent,
     PhotoUploaderComponent,
+    IconAlertCircleComponent,
+    IconCheckComponent,
+    IconImageComponent,
+    IconArrowLeftComponent,
+    IconBanComponent,
+    IconCheckCircleComponent,
+    IconHomeComponent,
+    IconSunComponent,
+    IconActivityComponent,
+    IconLocationComponent,
+    IconInfoComponent,
   ],
   templateUrl: './spots-form.component.html',
   styleUrl: './spots-form.component.scss',
