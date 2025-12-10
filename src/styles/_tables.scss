@@ -1,0 +1,247 @@
+// ============================================
+// 🛹 SOSKATE - TABLES
+// Styles de tableaux réutilisables pour les listes admin
+// ============================================
+
+@use 'variables' as *;
+
+// ============================================
+// TABLE WRAPPER
+// ============================================
+.table-wrapper {
+  background: linear-gradient(135deg, var(--surface-primary), var(--surface-secondary));
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--premium-bg-subtle);
+
+  @include tablet {
+    overflow-x: auto;
+  }
+}
+
+// ============================================
+// DATA TABLE
+// ============================================
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  @include tablet {
+    min-width: 600px;
+  }
+
+  // ============================================
+  // TABLE HEADER
+  // ============================================
+  thead {
+    background: linear-gradient(to right, var(--primary), var(--gray-700));
+
+    tr {
+      border-bottom: 2px solid var(--premium);
+    }
+
+    th {
+      padding: 16px 12px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--premium);
+      white-space: nowrap;
+
+      @include tablet {
+        padding: 12px 8px;
+        font-size: 0.7rem;
+      }
+    }
+  }
+
+  // ============================================
+  // TABLE BODY
+  // ============================================
+  tbody {
+    tr {
+      background-color: var(--surface-row);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: all var(--transition-normal);
+
+      &:hover {
+        background-color: var(--surface-hover);
+        transform: translateX(4px);
+        box-shadow: -4px 0 0 var(--premium);
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 16px 12px;
+      color: var(--text-color);
+      font-size: 0.875rem;
+      vertical-align: middle;
+
+      @include tablet {
+        padding: 12px 8px;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// ============================================
+// COLUMN TYPES
+// ============================================
+
+// Colonne ID
+.col-id {
+  width: 60px;
+}
+
+.cell-id {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: var(--info-bg);
+  color: var(--info);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+// Colonne Nom
+.col-name {
+  min-width: 180px;
+}
+
+.cell-name {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .name-primary {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+  }
+
+  .name-secondary {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--premium-bg-light);
+    color: var(--premium);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 500;
+    align-self: flex-start;
+  }
+}
+
+// Colonne Adresse
+.col-address {
+  min-width: 200px;
+}
+
+.cell-address {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .address-main {
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .address-secondary {
+    color: var(--gray-100);
+    font-size: 0.8rem;
+  }
+}
+
+// Colonne Coordonnées
+.col-coords {
+  min-width: 150px;
+}
+
+.cell-coords {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+
+  .coord-item {
+    color: var(--gray-100);
+  }
+
+  .coord-label {
+    color: var(--premium);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+}
+
+// Colonne Statut
+.col-status {
+  width: 100px;
+}
+
+// Colonne Dates
+.col-dates {
+  min-width: 150px;
+}
+
+.cell-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+
+  .date-item {
+    color: var(--gray-100);
+  }
+
+  .date-label {
+    color: var(--premium);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+}
+
+// Colonne Actions
+.col-actions {
+  width: 180px;
+  text-align: right;
+
+  @include tablet {
+    width: 100px;
+  }
+}
+
+// ============================================
+// RESPONSIVE HELPER - Hide on mobile
+// ============================================
+.xs-hide {
+  @include tablet {
+    display: none;
+  }
+}
+
+// ============================================
+// EMPTY ROW (pour le @empty state)
+// ============================================
+.empty-row {
+  background: transparent !important;
+
+  &:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  td {
+    padding: 80px 24px !important;
+    text-align: center;
+  }
+}

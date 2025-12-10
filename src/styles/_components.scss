@@ -1,0 +1,283 @@
+// ============================================
+// 🛹 SOSKATE - COMPONENTS
+// Composants UI réutilisables
+// ============================================
+
+@use 'variables' as *;
+
+// ============================================
+// PAGE HEADER (Liste header)
+// ============================================
+.list-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @include tablet {
+    padding: 16px;
+  }
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  @include tablet {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.list-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+
+  @include tablet {
+    font-size: 1.5rem;
+  }
+}
+
+.list-count {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: var(--premium-bg);
+  color: var(--premium);
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+// ============================================
+// STATUS BADGE
+// ============================================
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-lg);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid transparent;
+
+  // Active
+  &.status-active {
+    background-color: var(--success-bg);
+    color: var(--success);
+    border-color: var(--success);
+  }
+
+  // Inactive
+  &.status-inactive {
+    background-color: var(--danger-bg);
+    color: var(--danger);
+    border-color: var(--danger);
+  }
+
+  // Pending
+  &.status-pending {
+    background-color: var(--warning-bg);
+    color: var(--warning);
+    border-color: var(--warning);
+
+    .status-dot {
+      animation: pulse 2s infinite;
+    }
+  }
+
+  // Info
+  &.status-info {
+    background-color: var(--info-bg);
+    color: var(--info);
+    border-color: var(--info);
+  }
+}
+
+// Dot indicateur optionnel
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+// ============================================
+// ACTION BUTTONS (Table actions)
+// ============================================
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  background: transparent;
+  text-decoration: none;
+
+  // Icônes SVG et composants
+  svg,
+  app-icon-edit,
+  app-icon-delete {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  @include tablet {
+    padding: 8px;
+
+    span {
+      display: none;
+    }
+  }
+
+  // État désactivé
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  // Variante Edit
+  &.btn-action-edit {
+    color: var(--info);
+    border-color: var(--info);
+    background-color: var(--info-bg-light);
+
+    &:hover:not(:disabled) {
+      background-color: var(--info);
+      color: white;
+      box-shadow: var(--shadow-info);
+      transform: translateY(-2px);
+    }
+  }
+
+  // Variante Delete
+  &.btn-action-delete {
+    color: var(--danger);
+    border-color: var(--danger);
+    background-color: var(--danger-bg);
+
+    &:hover:not(:disabled) {
+      background-color: var(--danger);
+      color: white;
+      box-shadow: var(--shadow-danger);
+      transform: translateY(-2px);
+    }
+  }
+
+  // Variante View
+  &.btn-action-view {
+    color: var(--gray-100);
+    border-color: var(--gray-100);
+    background-color: rgba(156, 163, 175, 0.1);
+
+    &:hover:not(:disabled) {
+      background-color: var(--gray-100);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ============================================
+// EMPTY STATE
+// ============================================
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.empty-text {
+  color: var(--gray-100);
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+// ============================================
+// BADGE VARIANTS (Tags, labels)
+// ============================================
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-weight: 500;
+
+  &.badge-premium {
+    background-color: var(--premium-bg-light);
+    color: var(--premium);
+  }
+
+  &.badge-info {
+    background-color: var(--info-bg);
+    color: var(--info);
+  }
+
+  &.badge-success {
+    background-color: var(--success-bg);
+    color: var(--success);
+  }
+
+  &.badge-danger {
+    background-color: var(--danger-bg);
+    color: var(--danger);
+  }
+
+  &.badge-warning {
+    background-color: var(--warning-bg);
+    color: var(--warning);
+  }
+}
+
+// ============================================
+// BUTTON ICON (for + in buttons)
+// ============================================
+.btn-icon {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}

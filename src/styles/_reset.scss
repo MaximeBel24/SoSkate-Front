@@ -1,3 +1,8 @@
+// ============================================
+// 🛹 SOSKATE - RESET
+// Normalisation des styles de base
+// ============================================
+
 body {
   margin: 0;
   background-color: var(--primary);
@@ -7,7 +12,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
   margin: 0;
 }
 
@@ -15,7 +21,13 @@ h5 {
   box-sizing: border-box;
 }
 
-ul {
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul,
+ol {
   list-style: none;
   padding-left: 0;
   margin: 0;
@@ -31,8 +43,23 @@ a {
   color: inherit;
   padding: 6px 12px;
   display: inline-block;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-a:hover {
-  text-decoration: underline;
+button {
+  font-family: inherit;
+}
+
+// Remove default focus outline (we add custom ones)
+:focus {
+  outline: none;
+}
+
+// Accessible focus for keyboard navigation
+:focus-visible {
+  outline: 2px solid var(--premium);
+  outline-offset: 2px;
 }

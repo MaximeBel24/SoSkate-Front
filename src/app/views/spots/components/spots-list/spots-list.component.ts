@@ -3,6 +3,8 @@ import {RouterLink} from '@angular/router';
 import {SpotService} from '../../../../shared/services/spot.service';
 import {DatePipe, DecimalPipe} from '@angular/common';
 import {ConfirmationModalComponent} from '../../../../components/confirmation-modal/confirmation-modal.component';
+import {IconDeleteComponent} from '../../../../components/icons/icon-delete/icon-delete.component';
+import {IconEditComponent} from '../../../../components/icons/icon-edit/icon-edit.component';
 
 @Component({
   selector: 'app-spots-list',
@@ -10,7 +12,9 @@ import {ConfirmationModalComponent} from '../../../../components/confirmation-mo
     RouterLink,
     DecimalPipe,
     DatePipe,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    IconDeleteComponent,
+    IconEditComponent
   ],
   templateUrl: './spots-list.component.html',
   styleUrl: './spots-list.component.scss'

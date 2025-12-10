@@ -1,5 +1,16 @@
+// ============================================
+// 🛹 SOSKATE - VARIABLES
+// ============================================
+
 :root {
+  // ============================================
+  // TYPOGRAPHY
+  // ============================================
   --font-family: "Montserrat", sans-serif;
+
+  // ============================================
+  // COLORS - Base
+  // ============================================
   --text-color: #f5f5f5;
   --gray-100: #dfe6e9;
   --gray-700: #2c3a47;
@@ -11,7 +22,112 @@
   --success: #22c55e;
   --danger: #dc2626;
   --info: #2294c9;
+  --warning: #f59e0b;
 
+  // ============================================
+  // COLORS - With opacity (backgrounds, borders)
+  // ============================================
+  --premium-bg: rgba(255, 107, 53, 0.2);
+  --premium-bg-light: rgba(255, 107, 53, 0.15);
+  --premium-bg-subtle: rgba(255, 107, 53, 0.1);
+  --premium-border: rgba(255, 107, 53, 0.3);
+
+  --success-bg: rgba(34, 197, 94, 0.2);
+  --success-border: rgba(34, 197, 94, 0.3);
+
+  --danger-bg: rgba(220, 38, 38, 0.2);
+  --danger-border: rgba(220, 38, 38, 0.3);
+
+  --info-bg: rgba(34, 148, 201, 0.2);
+  --info-bg-light: rgba(34, 148, 201, 0.1);
+  --info-border: rgba(34, 148, 201, 0.3);
+
+  --warning-bg: rgba(245, 158, 11, 0.2);
+  --warning-border: rgba(245, 158, 11, 0.3);
+
+  // ============================================
+  // SURFACES & BACKGROUNDS
+  // ============================================
+  --surface-primary: rgba(28, 25, 23, 0.95);
+  --surface-secondary: rgba(44, 58, 71, 0.9);
+  --surface-hover: rgba(44, 58, 71, 0.8);
+  --surface-row: rgba(28, 25, 23, 0.6);
+  --border-subtle: rgba(176, 179, 184, 0.1);
+
+  // ============================================
+  // BORDERS & RADIUS
+  // ============================================
   --border: 1px solid var(--gray-100);
   --radius: 24px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  // ============================================
+  // SHADOWS
+  // ============================================
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
+  --shadow-premium: 0 0 8px var(--premium);
+  --shadow-info: 0 4px 12px rgba(34, 148, 201, 0.4);
+  --shadow-danger: 0 4px 12px rgba(220, 38, 38, 0.4);
+
+  // ============================================
+  // TRANSITIONS
+  // ============================================
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  // ============================================
+  // Z-INDEX
+  // ============================================
+  --z-dropdown: 100;
+  --z-modal: 1000;
+  --z-tooltip: 1100;
+}
+
+// ============================================
+// SCSS VARIABLES - Breakpoints
+// ============================================
+$breakpoint-xs: 480px;
+$breakpoint-sm: 640px;
+$breakpoint-md: 820px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+// ============================================
+// SCSS MIXINS - Media Queries
+// ============================================
+@mixin mobile {
+  @media screen and (max-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+// Mixin générique pour max-width
+@mixin max-width($width) {
+  @media screen and (max-width: $width) {
+    @content;
+  }
+}
+
+// Mixin générique pour min-width
+@mixin min-width($width) {
+  @media screen and (min-width: $width) {
+    @content;
+  }
 }

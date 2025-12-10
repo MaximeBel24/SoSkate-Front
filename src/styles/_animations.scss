@@ -1,0 +1,155 @@
+// ============================================
+// 🛹 SOSKATE - ANIMATIONS
+// Keyframes et animations réutilisables
+// ============================================
+
+// ============================================
+// KEYFRAMES
+// ============================================
+
+// Animation flottante (empty states, icônes)
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Animation de rotation (spinners, loaders)
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Animation de pulsation (notifications, badges)
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Animation de fondu entrant
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Animation de fondu sortant
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// Animation de slide depuis le bas
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation de slide depuis la gauche
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Animation de shake (erreurs)
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-4px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(4px);
+  }
+}
+
+// ============================================
+// ANIMATION CLASSES
+// ============================================
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 0.8s linear infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease forwards;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease;
+}
+
+// ============================================
+// SPINNER COMPONENT
+// ============================================
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+
+  &.spinner-sm {
+    width: 14px;
+    height: 14px;
+    border-width: 1.5px;
+  }
+
+  &.spinner-lg {
+    width: 24px;
+    height: 24px;
+    border-width: 3px;
+  }
+
+  // Variantes de couleur
+  &.spinner-primary {
+    border-color: rgba(28, 25, 23, 0.3);
+    border-top-color: var(--primary);
+  }
+
+  &.spinner-premium {
+    border-color: rgba(255, 107, 53, 0.3);
+    border-top-color: var(--premium);
+  }
+}

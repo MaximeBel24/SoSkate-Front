@@ -6,6 +6,8 @@ import {ServiceTypeLabel} from '../../../../shared/models/service.type';
 import {DurationPipe} from '../../../../shared/pipes/duration.pipe';
 import {PricePipe} from '../../../../shared/pipes/price.pipe';
 import {ConfirmationModalComponent} from '../../../../components/confirmation-modal/confirmation-modal.component';
+import {IconDeleteComponent} from '../../../../components/icons/icon-delete/icon-delete.component';
+import {IconEditComponent} from '../../../../components/icons/icon-edit/icon-edit.component';
 
 @Component({
   selector: 'app-services-list',
@@ -14,7 +16,9 @@ import {ConfirmationModalComponent} from '../../../../components/confirmation-mo
     RouterLink,
     DurationPipe,
     PricePipe,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    IconDeleteComponent,
+    IconEditComponent
   ],
   templateUrl: './services-list.component.html',
   styleUrl: './services-list.component.scss'
