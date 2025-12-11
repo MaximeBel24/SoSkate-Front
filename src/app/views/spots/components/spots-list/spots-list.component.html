@@ -1,15 +1,12 @@
 <div class="list-container">
   <!-- Header avec titre et actions -->
-  <div class="list-header">
-    <div class="header-content">
-      <h2 class="list-title">Liste des spots</h2>
-      <span class="list-count">{{ spots().length }} spot(s)</span>
-    </div>
-    <button [routerLink]="['..', 'new']" class="btn btn-premium">
-      <span class="btn-icon">+</span>
-      Ajouter un spot
-    </button>
-  </div>
+  <app-list-header
+    title="Liste des spots"
+    [count]="spots().length"
+    countLabel="spot"
+    buttonText="Ajouter un spot"
+    [buttonLink]="['..', 'new']"
+  />
 
   <!-- Table responsive -->
   <div class="table-wrapper">
@@ -29,9 +26,7 @@
         @for (spot of spots(); track spot.id) {
           <tr>
             <!-- ID -->
-            <td class="col-id">
-              <span class="cell-id">#{{ spot.id }}</span>
-            </td>
+            <app-cell-id [id]="spot.id" />
 
             <!-- Nom -->
             <td class="col-name">
@@ -56,75 +51,40 @@
               <div class="cell-coords">
                 <span class="coord-item">
                   <span class="coord-label">Lat:</span>
-                  {{ spot.latitude | number : "1.4-4" }}
+                  {{ spot.latitude | number: "1.4-4" }}
                 </span>
                 <span class="coord-item">
                   <span class="coord-label">Lng:</span>
-                  {{ spot.longitude | number : "1.4-4" }}
+                  {{ spot.longitude | number: "1.4-4" }}
                 </span>
               </div>
             </td>
 
             <!-- Statut -->
-            <td class="col-status">
-              <span
-                class="status-badge"
-                [class.status-active]="spot.isActive"
-                [class.status-inactive]="!spot.isActive"
-              >
-                {{ spot.isActive ? "Actif" : "Inactif" }}
-              </span>
-            </td>
+            <app-cell-status [isActive]="spot.isActive" />
 
             <!-- Dates -->
-            <td class="col-dates xs-hide">
-              <div class="cell-dates">
-                <span class="date-item">
-                  <span class="date-label">Créé:</span>
-                  {{ spot.createdAt | date : "dd/MM/yyyy" }}
-                </span>
-                <span class="date-item">
-                  <span class="date-label">MAJ:</span>
-                  {{ spot.updatedAt | date : "dd/MM/yyyy" }}
-                </span>
-              </div>
-            </td>
+            <app-cell-dates
+              [createdAt]="spot.createdAt"
+              [updatedAt]="spot.updatedAt"
+            />
 
             <!-- Actions -->
-            <td class="col-actions">
-              <div class="action-buttons">
-                <button
-                  [routerLink]="['..', spot.id, 'edit']"
-                  class="btn-action btn-action-edit"
-                  title="Modifier"
-                >
-                  <app-icon-edit [size]="16" />
-                  <span class="xs-hide">Modifier</span>
-                </button>
-                <button
-                  (click)="openDeleteModal(spot.id, spot.name)"
-                  class="btn-action btn-action-delete"
-                  title="Supprimer"
-                >
-                  <app-icon-delete [size]="16" />
-                  <span class="xs-hide">Supprimer</span>
-                </button>
-              </div>
-            </td>
+            <app-cell-actions
+              [editLink]="['..', spot.id, 'edit']"
+              (delete)="openDeleteModal(spot.id, spot.name)"
+            />
           </tr>
         } @empty {
           <tr class="empty-row">
             <td colspan="7">
-              <div class="empty-state">
-                <div class="empty-icon">🛹</div>
-                <h3 class="empty-title">Aucun spot disponible</h3>
-                <p class="empty-text">
-                  Commencez par ajouter votre premier spot de skateboard
-                </p>
-                <button [routerLink]="['..', 'new']" class="btn btn-premium">
-                  Créer un spot
-                </button>
-              </div>
+              <app-empty-state
+                icon="🛹"
+                title="Aucun spot disponible"
+                message="Commencez par ajouter votre premier spot de skateboard"
+                buttonText="Créer un spot"
+                [buttonLink]="['..', 'new']"
+              />
             </td>
           </tr>
         }

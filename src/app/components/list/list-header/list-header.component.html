@@ -1,0 +1,13 @@
+<div class="list-header">
+  <div class="header-content">
+    <h2 class="list-title">{{ title }}</h2>
+    <span class="list-count">{{ count }} {{ countLabel }}{{ count > 1 ? 's' : '' }}</span>
+  </div>
+
+  @if (showButton && buttonLink.length > 0) {
+    <button [routerLink]="buttonLink" class="btn btn-premium">
+      <span class="btn-icon">{{ buttonIcon }}</span>
+      {{ buttonText }}
+    </button>
+  }
+</div>

@@ -1,27 +1,41 @@
-import {Component, computed, inject} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {SpotService} from '../../../../shared/services/spot.service';
-import {DatePipe, DecimalPipe} from '@angular/common';
-import {ConfirmationModalComponent} from '../../../../components/confirmation-modal/confirmation-modal.component';
-import {IconDeleteComponent} from '../../../../components/icons/icon-delete/icon-delete.component';
-import {IconEditComponent} from '../../../../components/icons/icon-edit/icon-edit.component';
+import { Component, computed, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { DecimalPipe } from '@angular/common';
+
+// Services
+import { SpotService } from '../../../../shared/services/spot.service';
+
+// Composants partagés
+import { ConfirmationModalComponent } from '../../../../components/confirmation-modal/confirmation-modal.component';
+import { ListHeaderComponent } from '../../../../components/list/list-header/list-header.component'
+import { EmptyStateComponent } from '../../../../components/list/empty-state/empty-state.component'
+
+// Composants de cellules de tableau
+import { CellIdComponent } from '../../../../components/list/table-cells/cell-id.component';
+import { CellStatusComponent } from '../../../../components/list/table-cells/cell-status.component';
+import { CellDatesComponent } from '../../../../components/list/table-cells/cell-dates.component';
+import { CellActionsComponent } from '../../../../components/list/table-cells/cell-actions.component';
 
 @Component({
   selector: 'app-spots-list',
   imports: [
-    RouterLink,
     DecimalPipe,
-    DatePipe,
+    // Composants partagés
     ConfirmationModalComponent,
-    IconDeleteComponent,
-    IconEditComponent
+    ListHeaderComponent,
+    EmptyStateComponent,
+    // Cellules de tableau
+    CellIdComponent,
+    CellStatusComponent,
+    CellDatesComponent,
+    CellActionsComponent
   ],
   templateUrl: './spots-list.component.html',
   styleUrl: './spots-list.component.scss'
 })
 export class SpotsListComponent {
-
   private spotService = inject(SpotService);
+
   spots = computed(() => this.spotService.spotsResources.value() || []);
 
   deleteModal = {

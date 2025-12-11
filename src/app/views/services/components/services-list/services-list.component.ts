@@ -1,30 +1,52 @@
-import {Component, computed, inject} from '@angular/core';
-import {ServiceService} from '../../../../shared/services/service.service';
-import {DatePipe, DecimalPipe} from '@angular/common';
-import {RouterLink} from '@angular/router';
-import {ServiceTypeLabel} from '../../../../shared/models/service.type';
-import {DurationPipe} from '../../../../shared/pipes/duration.pipe';
-import {PricePipe} from '../../../../shared/pipes/price.pipe';
-import {ConfirmationModalComponent} from '../../../../components/confirmation-modal/confirmation-modal.component';
-import {IconDeleteComponent} from '../../../../components/icons/icon-delete/icon-delete.component';
-import {IconEditComponent} from '../../../../components/icons/icon-edit/icon-edit.component';
+import { Component, computed, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+// Services
+import { ServiceService } from '../../../../shared/services/service.service';
+
+// Models & Pipes
+import { ServiceTypeLabel } from '../../../../shared/models/service.type';
+import { DurationPipe } from '../../../../shared/pipes/duration.pipe';
+import { PricePipe } from '../../../../shared/pipes/price.pipe';
+
+// Composants partagés
+import { ConfirmationModalComponent } from '../../../../components/confirmation-modal/confirmation-modal.component';
+import {ListHeaderComponent} from '../../../../components/list/list-header/list-header.component';
+
+import {EmptyStateComponent} from '../../../../components/list/empty-state/empty-state.component';
+
+
+// Composants de cellules de tableau
+import {CellStatusComponent} from '../../../../components/list/table-cells/cell-status.component';
+import {CellDatesComponent} from '../../../../components/list/table-cells/cell-dates.component';
+import {CellActionsComponent} from '../../../../components/list/table-cells/cell-actions.component';
+import {CellIdComponent} from '../../../../components/list/table-cells/cell-id.component';
 
 @Component({
   selector: 'app-services-list',
+  standalone: true,
   imports: [
-    DatePipe,
-    RouterLink,
+
+    // Pipes
     DurationPipe,
     PricePipe,
+
+    // Composants partagés
     ConfirmationModalComponent,
-    IconDeleteComponent,
-    IconEditComponent
+    ListHeaderComponent,
+    EmptyStateComponent,
+
+    // Cellules de tableau
+    CellStatusComponent,
+    CellDatesComponent,
+    CellActionsComponent,
+    CellIdComponent,
+
   ],
   templateUrl: './services-list.component.html',
   styleUrl: './services-list.component.scss'
 })
 export class ServicesListComponent {
-
   private serviceService = inject(ServiceService);
 
   readonly label = ServiceTypeLabel;
@@ -72,7 +94,7 @@ export class ServicesListComponent {
 
     try {
       await this.serviceService.deleteService(this.deleteModal.serviceId);
-      console.log('Prestation supprimé avec succès');
+      console.log('Prestation supprimée avec succès');
       this.closeDeleteModal();
     } catch (error) {
       console.error('Erreur lors de la suppression:', error);
