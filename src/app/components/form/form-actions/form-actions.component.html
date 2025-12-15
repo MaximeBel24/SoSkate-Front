@@ -1,0 +1,39 @@
+<div class="form-actions">
+  @if (showCancel) {
+    @if (cancelLink.length > 0) {
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [routerLink]="cancelLink"
+        [disabled]="isLoading"
+      >
+        <app-icon-arrow-left [size]="18" />
+        {{ cancelText }}
+      </button>
+    } @else {
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [disabled]="isLoading"
+        (click)="onCancelClick()"
+      >
+        <app-icon-arrow-left [size]="18" />
+        {{ cancelText }}
+      </button>
+    }
+  }
+
+  <button
+    type="submit"
+    class="btn btn-premium"
+    [disabled]="isDisabled"
+  >
+    @if (isLoading) {
+      <span class="spinner"></span>
+      <span>{{ loadingText }}</span>
+    } @else {
+      <app-icon-check [size]="18" />
+      <span>{{ displaySubmitText }}</span>
+    }
+  </button>
+</div>

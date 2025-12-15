@@ -1,0 +1,59 @@
+<div class="form-group" [class.full-width]="fullWidth">
+  <label [for]="inputId" class="form-label">
+    {{ label }}
+    @if (required) {
+      <span class="required">*</span>
+    }
+  </label>
+
+  @if (addon || addonLeft) {
+    <div class="input-with-addon" [class.input-with-left-addon]="addonLeft">
+      @if (addonLeft) {
+        <span class="input-addon input-addon-left">{{ addonLeft }}</span>
+      }
+      <input
+        [id]="inputId"
+        [type]="type"
+        [value]="value"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+        [attr.step]="step || null"
+        [attr.min]="min || null"
+        [attr.max]="max || null"
+        [attr.maxlength]="maxlength || null"
+        class="form-input"
+        [class.input-error]="showError"
+        [class.input-with-left-addon]="addonLeft"
+        (input)="onInputChange($event)"
+        (blur)="onBlur()"
+      />
+      @if (addon) {
+        <span class="input-addon">{{ addon }}</span>
+      }
+    </div>
+  } @else {
+    <input
+      [id]="inputId"
+      [type]="type"
+      [value]="value"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [attr.step]="step || null"
+      [attr.min]="min || null"
+      [attr.max]="max || null"
+      [attr.maxlength]="maxlength || null"
+      class="form-input"
+      [class.input-error]="showError"
+      (input)="onInputChange($event)"
+      (blur)="onBlur()"
+    />
+  }
+
+  @if (showError) {
+    <span class="error-message">{{ errorMessage }}</span>
+  }
+
+  @if (helpText && !showError) {
+    <span class="help-text">{{ helpText }}</span>
+  }
+</div>

@@ -1,0 +1,29 @@
+<div class="form-group" [class.full-width]="fullWidth">
+  <label [for]="textareaId" class="form-label">
+    {{ label }}
+    @if (required) {
+      <span class="required">*</span>
+    }
+  </label>
+
+  <textarea
+    [id]="textareaId"
+    [value]="value"
+    [placeholder]="placeholder"
+    [rows]="rows"
+    [disabled]="disabled"
+    [attr.maxlength]="maxlength || null"
+    class="form-input form-textarea"
+    [class.input-error]="showError"
+    (input)="onTextareaChange($event)"
+    (blur)="onBlur()"
+  ></textarea>
+
+  @if (showError) {
+    <span class="error-message">{{ errorMessage }}</span>
+  }
+
+  @if (maxlength && !showError) {
+    <span class="help-text">{{ characterCount }}/{{ maxlength }} caractères</span>
+  }
+</div>

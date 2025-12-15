@@ -1,0 +1,10 @@
+<div class="form-section">
+  <h3 class="section-title">
+    @if (iconTemplate) {
+      <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+    }
+    {{ title }}
+  </h3>
+
+  <ng-content></ng-content>
+</div>

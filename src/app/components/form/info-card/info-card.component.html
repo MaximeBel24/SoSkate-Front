@@ -1,0 +1,20 @@
+<div
+  class="info-card"
+  [class.info-card-active]="isActive"
+  [class.info-card-clickable]="clickable"
+  (click)="onClick()"
+  [attr.role]="clickable ? 'button' : null"
+  [attr.tabindex]="clickable ? 0 : null"
+>
+  @if (iconTemplate) {
+    <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+  }
+
+  <div class="info-card-content">
+    <h4>{{ title }}</h4>
+    @if (description) {
+      <p>{{ description }}</p>
+    }
+    <ng-content></ng-content>
+  </div>
+</div>

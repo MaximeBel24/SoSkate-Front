@@ -1,0 +1,15 @@
+@if (showSummary) {
+  <div class="validation-summary">
+    <app-icon-alert-circle [size]="18" />
+    <div class="validation-content">
+      <span>{{ message }}</span>
+      @if (errors.length > 0) {
+        <ul class="validation-errors">
+          @for (error of errors; track error) {
+            <li>{{ error }}</li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+}
