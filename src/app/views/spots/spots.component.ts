@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {SectionLayoutComponent} from '../../components/section-layout/section-layout.component';
+
 
 @Component({
   selector: 'app-spots',
+  standalone: true,
   imports: [
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive
+    SectionLayoutComponent
   ],
-  templateUrl: './spots.component.html',
-  styleUrl: './spots.component.scss'
+  template: `<app-section-layout sectionName="spot" />`
 })
-export class SpotsComponent {
-
-}
+export class SpotsComponent {}

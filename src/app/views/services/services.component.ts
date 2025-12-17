@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {SectionLayoutComponent} from '../../components/section-layout/section-layout.component';
 
 @Component({
   selector: 'app-services',
+  standalone: true,
   imports: [
-    RouterLink,
-    RouterLinkActive,
-    RouterOutlet
+    SectionLayoutComponent
   ],
-  templateUrl: './services.component.html',
-  styleUrl: './services.component.scss'
+  template: `<app-section-layout sectionName="prestation" gender="F" />`
 })
-export class ServicesComponent {
-
-}
+export class ServicesComponent {}
