@@ -1,16 +1,6 @@
-// 🎨 Variables SoSkate
-$primary-orange: #ff6b35;
-$primary-dark: #d44a1c;
-$primary-light: #ff8c61;
-$yellow-accent: #ffc107;
-$dark-bg: #1a1a1a;
-$dark-card: #2a2a2a;
-$border-color: rgba(255, 255, 255, 0.1);
-$text-primary: #ffffff;
-$text-secondary: #a0a0a0;
-$text-muted: #666666;
-$error-color: #ef4444;
-$success-color: #10b981;
+// ============================================
+// 🛹 SOSKATE - PHOTO UPLOADER COMPONENT
+// ============================================
 
 .photo-uploader {
   width: 100%;
@@ -29,11 +19,11 @@ $success-color: #10b981;
       gap: 0.5rem;
       font-size: 1.1rem;
       font-weight: 600;
-      color: $text-primary;
+      color: var(--text-primary);
       margin: 0;
 
       svg {
-        color: $primary-orange;
+        color: var(--premium);
         flex-shrink: 0;
       }
     }
@@ -42,18 +32,18 @@ $success-color: #10b981;
       display: inline-flex;
       align-items: center;
       padding: 0.4rem 0.8rem;
-      background: rgba($primary-orange, 0.1);
-      border: 1px solid rgba($primary-orange, 0.3);
+      background: var(--premium-bg-subtle);
+      border: 1px solid var(--premium-border);
       border-radius: 12px;
       font-size: 0.875rem;
       font-weight: 600;
-      color: $primary-orange;
+      color: var(--premium);
       transition: all 0.3s ease;
 
       &.photo-counter-full {
-        background: rgba($error-color, 0.1);
-        border-color: rgba($error-color, 0.3);
-        color: $error-color;
+        background: var(--danger-bg);
+        border-color: var(--danger-border);
+        color: var(--danger);
       }
     }
   }
@@ -64,36 +54,36 @@ $success-color: #10b981;
     padding: 3rem 2rem;
     background: linear-gradient(
         135deg,
-        rgba($dark-card, 0.5) 0%,
-        rgba($dark-card, 0.3) 100%
+        var(--bg-secondary) 0%,
+        var(--bg-row) 100%
     );
-    border: 2px dashed $border-color;
+    border: 2px dashed var(--border-color);
     border-radius: 16px;
     transition: all 0.3s ease;
     cursor: pointer;
     margin-bottom: 1.5rem;
 
     &:hover:not(.drop-zone-disabled) {
-      border-color: rgba($primary-orange, 0.5);
+      border-color: var(--premium-border);
       background: linear-gradient(
           135deg,
-          rgba($primary-orange, 0.05) 0%,
-          rgba($primary-orange, 0.02) 100%
+          var(--premium-bg-subtle) 0%,
+          var(--bg-row) 100%
       );
       transform: translateY(-2px);
     }
 
     &.drop-zone-dragging {
-      border-color: $primary-orange;
+      border-color: var(--premium);
       background: linear-gradient(
           135deg,
-          rgba($primary-orange, 0.1) 0%,
-          rgba($primary-orange, 0.05) 100%
+          var(--premium-bg) 0%,
+          var(--premium-bg-subtle) 100%
       );
       transform: scale(1.02);
 
       .drop-zone-icon svg {
-        color: $primary-orange;
+        color: var(--premium);
         animation: bounce 0.6s ease infinite;
       }
     }
@@ -117,7 +107,7 @@ $success-color: #10b981;
 
     .drop-zone-icon {
       svg {
-        color: $text-secondary;
+        color: var(--text-secondary);
         transition: all 0.3s ease;
       }
     }
@@ -126,14 +116,14 @@ $success-color: #10b981;
       .drop-zone-title {
         font-size: 1rem;
         font-weight: 500;
-        color: $text-primary;
+        color: var(--text-primary);
         margin: 0 0 0.5rem 0;
       }
 
       .drop-zone-button {
         background: none;
         border: none;
-        color: $primary-orange;
+        color: var(--premium);
         font-weight: 600;
         cursor: pointer;
         padding: 0;
@@ -141,7 +131,7 @@ $success-color: #10b981;
         transition: color 0.2s ease;
 
         &:hover:not(:disabled) {
-          color: $primary-light;
+          color: var(--premium-hover);
         }
 
         &:disabled {
@@ -152,13 +142,13 @@ $success-color: #10b981;
 
       .drop-zone-subtitle {
         font-size: 0.875rem;
-        color: $text-secondary;
+        color: var(--text-secondary);
         margin: 0;
       }
 
       .drop-zone-info {
         font-size: 0.813rem;
-        color: $text-muted;
+        color: var(--text-muted);
         margin: 0.5rem 0 0 0;
       }
     }
@@ -171,10 +161,10 @@ $success-color: #10b981;
     .section-subtitle {
       font-size: 0.938rem;
       font-weight: 600;
-      color: $text-primary;
+      color: var(--text-primary);
       margin: 0 0 1rem 0;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid $border-color;
+      border-bottom: 1px solid var(--border-color);
     }
   }
 
@@ -196,14 +186,14 @@ $success-color: #10b981;
     aspect-ratio: 1;
     border-radius: 12px;
     overflow: hidden;
-    background: $dark-card;
+    background: var(--bg-secondary);
     border: 2px solid transparent;
     transition: all 0.3s ease;
 
     &:hover {
-      border-color: $primary-orange;
+      border-color: var(--premium);
       transform: translateY(-4px);
-      box-shadow: 0 8px 16px rgba($primary-orange, 0.2);
+      box-shadow: 0 8px 16px var(--premium-bg);
 
       .photo-overlay {
         opacity: 1;
@@ -211,11 +201,11 @@ $success-color: #10b981;
     }
 
     &.photo-card-existing {
-      border-color: rgba($success-color, 0.3);
+      border-color: var(--success-border);
     }
 
     &.photo-card-invalid {
-      border-color: $error-color;
+      border-color: var(--danger);
 
       .photo-preview {
         opacity: 0.5;
@@ -236,9 +226,9 @@ $success-color: #10b981;
       bottom: 0;
       background: linear-gradient(
           to bottom,
-          rgba(0, 0, 0, 0.7) 0%,
-          rgba(0, 0, 0, 0.3) 50%,
-          rgba(0, 0, 0, 0.7) 100%
+          var(--bg-overlay) 0%,
+          transparent 50%,
+          var(--bg-overlay) 100%
       );
       display: flex;
       align-items: center;
@@ -253,15 +243,15 @@ $success-color: #10b981;
       justify-content: center;
       width: 36px;
       height: 36px;
-      background: rgba($error-color, 0.9);
+      background: var(--danger);
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s ease;
-      color: white;
+      color: var(--text-inverse);
 
       &:hover:not(:disabled) {
-        background: $error-color;
+        background: var(--danger-hover);
         transform: scale(1.1);
       }
 
@@ -283,8 +273,7 @@ $success-color: #10b981;
       padding: 0.5rem;
       background: linear-gradient(
           to top,
-          rgba(0, 0, 0, 0.9) 0%,
-          rgba(0, 0, 0, 0.7) 70%,
+          var(--bg-overlay) 0%,
           transparent 100%
       );
       display: flex;
@@ -293,7 +282,7 @@ $success-color: #10b981;
 
       .photo-name {
         font-size: 0.75rem;
-        color: $text-primary;
+        color: var(--text-primary);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -301,12 +290,12 @@ $success-color: #10b981;
 
       .photo-size {
         font-size: 0.688rem;
-        color: $text-secondary;
+        color: var(--text-secondary);
       }
 
       .photo-error {
         font-size: 0.688rem;
-        color: $error-color;
+        color: var(--danger);
         font-weight: 500;
       }
     }
@@ -318,10 +307,10 @@ $success-color: #10b981;
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 1.25rem;
-    background: rgba($yellow-accent, 0.1);
-    border: 1px solid rgba($yellow-accent, 0.3);
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
     border-radius: 12px;
-    color: $yellow-accent;
+    color: var(--warning);
     font-size: 0.875rem;
     margin-bottom: 1rem;
 
@@ -341,14 +330,14 @@ $success-color: #10b981;
     .progress-bar {
       width: 100%;
       height: 8px;
-      background: $dark-card;
+      background: var(--bg-secondary);
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 0.5rem;
 
       .progress-fill {
         height: 100%;
-        background: linear-gradient(90deg, $primary-orange, $primary-light);
+        background: linear-gradient(90deg, var(--premium), var(--premium-hover));
         transition: width 0.3s ease;
         animation: progressShine 1.5s ease-in-out infinite;
       }
@@ -358,7 +347,7 @@ $success-color: #10b981;
       display: block;
       text-align: center;
       font-size: 0.875rem;
-      color: $text-secondary;
+      color: var(--text-secondary);
     }
   }
 }

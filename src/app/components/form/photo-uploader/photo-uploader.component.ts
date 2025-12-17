@@ -1,8 +1,8 @@
 import {Component, computed, EventEmitter, HostListener, inject, input, Output, signal,} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PhotoService} from '../../shared/services/photo.service';
-import {PhotoConstraints, PhotoFile, PhotoResponse,} from '../../shared/interfaces/photo.interface';
-import {PhotoEntityType, PhotoType} from '../../shared/models/photo.type';
+import {PhotoService} from '../../../shared/services/photo.service';
+import {PhotoConstraints, PhotoFile, PhotoResponse,} from '../../../shared/interfaces/photo.interface';
+import {PhotoEntityType, PhotoType} from '../../../shared/models/photo.type';
 
 @Component({
   selector: 'app-photo-uploader',

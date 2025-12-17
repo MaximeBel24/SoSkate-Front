@@ -42,7 +42,7 @@
 .list-title {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--text-color);
+  color: var(--text-primary);
   margin: 0;
 
   @include tablet {
@@ -171,7 +171,7 @@
 
     &:hover:not(:disabled) {
       background-color: var(--info);
-      color: white;
+      color: var(--text-inverse);
       box-shadow: var(--shadow-info);
       transform: translateY(-2px);
     }
@@ -185,7 +185,7 @@
 
     &:hover:not(:disabled) {
       background-color: var(--danger);
-      color: white;
+      color: var(--text-inverse);
       box-shadow: var(--shadow-danger);
       transform: translateY(-2px);
     }
@@ -193,13 +193,13 @@
 
   // Variante View
   &.btn-action-view {
-    color: var(--gray-100);
-    border-color: var(--gray-100);
-    background-color: rgba(156, 163, 175, 0.1);
+    color: var(--text-secondary);
+    border-color: var(--text-secondary);
+    background-color: var(--bg-row);
 
     &:hover:not(:disabled) {
-      background-color: var(--gray-100);
-      color: var(--primary);
+      background-color: var(--text-secondary);
+      color: var(--text-inverse);
       transform: translateY(-2px);
     }
   }
@@ -226,12 +226,12 @@
 .empty-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-color);
+  color: var(--text-primary);
   margin: 0;
 }
 
 .empty-text {
-  color: var(--gray-100);
+  color: var(--text-secondary);
   margin: 0;
   max-width: 400px;
   line-height: 1.5;

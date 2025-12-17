@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {SettingsMenuComponent} from '../../settings/settings-menu/settings-menu.component';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
     RouterLinkActive,
     CommonModule,
     NgOptimizedImage,
+    SettingsMenuComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

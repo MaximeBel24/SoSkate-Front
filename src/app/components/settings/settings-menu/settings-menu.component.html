@@ -1,0 +1,51 @@
+<div class="settings-menu">
+  <!-- Trigger Button (Gear Icon) -->
+  <button
+    type="button"
+    class="settings-menu__trigger"
+    [class.settings-menu__trigger--active]="isOpen()"
+    aria-label="Options"
+    title="Options"
+    (click)="toggle()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="settings-menu__icon"
+      [class.settings-menu__icon--spinning]="isOpen()"
+    >
+      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+  </button>
+
+  <!-- Dropdown Menu -->
+  @if (isOpen()) {
+    <div class="settings-menu__dropdown" role="menu">
+      <div class="settings-menu__header">
+        <span class="settings-menu__title">Options</span>
+      </div>
+
+      <div class="settings-menu__divider"></div>
+
+      <!-- Theme Toggle -->
+      <app-theme-toggle />
+
+      <!-- Future options can be added here -->
+      <!-- Example:
+      <div class="settings-menu__divider"></div>
+      <div class="settings-menu__item">
+        <span>Langue</span>
+        <span>Français</span>
+      </div>
+      -->
+    </div>
+  }
+</div>

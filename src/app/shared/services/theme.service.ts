@@ -1,6 +1,4 @@
-import { Injectable, signal, computed, effect } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { inject } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2, signal, computed, effect } from '@angular/core';
 
 // ============================================
 // TYPES
@@ -12,30 +10,31 @@ export type ResolvedTheme = 'light' | 'dark';
 // CONSTANTS
 // ============================================
 const STORAGE_KEY = 'soskate-theme';
-const THEME_TRANSITION_CLASS = 'theme-transition';
-const TRANSITION_DURATION = 300; // ms
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private document = inject(DOCUMENT);
-  private mediaQuery: MediaQueryList;
+  private readonly renderer: Renderer2;
+  private mediaQuery: MediaQueryList | null = null;
 
   // ----------------------------------------
   // SIGNALS
   // ----------------------------------------
+  private readonly _theme = signal<Theme>(this.getStoredTheme());
+  private readonly _systemTheme = signal<ResolvedTheme>(this.detectSystemTheme());
+
   /** User's theme preference (light, dark, or auto) */
-  readonly theme = signal<Theme>(this.getStoredTheme());
+  readonly theme = this._theme.asReadonly();
 
   /** System preference (light or dark) */
-  readonly systemTheme = signal<ResolvedTheme>(this.getSystemTheme());
+  readonly systemTheme = this._systemTheme.asReadonly();
 
   /** The actual applied theme (resolved from auto if needed) */
   readonly resolvedTheme = computed<ResolvedTheme>(() => {
-    const currentTheme = this.theme();
+    const currentTheme = this._theme();
     if (currentTheme === 'auto') {
-      return this.systemTheme();
+      return this._systemTheme();
     }
     return currentTheme;
   });
@@ -43,24 +42,36 @@ export class ThemeService {
   /** Helper computed for template usage */
   readonly isDark = computed(() => this.resolvedTheme() === 'dark');
   readonly isLight = computed(() => this.resolvedTheme() === 'light');
-  readonly isAuto = computed(() => this.theme() === 'auto');
+  readonly isAuto = computed(() => this._theme() === 'auto');
 
-  constructor() {
-    // Initialize media query listener
-    this.mediaQuery = this.document.defaultView!.matchMedia('(prefers-color-scheme: dark)');
+  constructor(rendererFactory: RendererFactory2) {
+    // Create renderer (works in SSR and browser)
+    this.renderer = rendererFactory.createRenderer(null, null);
 
-    // Listen for system theme changes
-    this.mediaQuery.addEventListener('change', (e) => {
-      this.systemTheme.set(e.matches ? 'dark' : 'light');
-    });
+    console.log('[ThemeService] Constructor called');
+    console.log('[ThemeService] Stored theme:', this.getStoredTheme());
+    console.log('[ThemeService] System theme:', this.detectSystemTheme());
 
-    // Effect to apply theme changes to DOM
+    // Setup system theme listener (browser only)
+    if (typeof window !== 'undefined') {
+      this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+      // Listen for system theme changes
+      this.mediaQuery.addEventListener('change', (e: MediaQueryListEvent) => {
+        console.log('[ThemeService] System theme changed:', e.matches ? 'dark' : 'light');
+        this._systemTheme.set(e.matches ? 'dark' : 'light');
+      });
+    }
+
+    // Apply theme whenever resolvedTheme changes
     effect(() => {
-      this.applyTheme(this.resolvedTheme());
+      const theme = this.resolvedTheme();
+      console.log('[ThemeService] Effect triggered, applying theme:', theme);
+      this.applyThemeToDOM(theme);
     });
 
-    // Apply initial theme immediately (without transition)
-    this.applyTheme(this.resolvedTheme(), false);
+    // Apply initial theme immediately
+    this.applyThemeToDOM(this.resolvedTheme());
   }
 
   // ----------------------------------------
@@ -69,10 +80,10 @@ export class ThemeService {
 
   /**
    * Set the theme preference
-   * @param theme - The theme to set ('light', 'dark', or 'auto')
    */
   setTheme(theme: Theme): void {
-    this.theme.set(theme);
+    console.log('[ThemeService] setTheme called:', theme);
+    this._theme.set(theme);
     this.storeTheme(theme);
   }
 
@@ -85,12 +96,11 @@ export class ThemeService {
   }
 
   /**
-   * Cycle through themes: light -> dark -> auto -> light
+   * Initialize the theme (call this from AppComponent or APP_INITIALIZER)
    */
-  cycleTheme(): void {
-    const current = this.theme();
-    const next: Theme = current === 'light' ? 'dark' : current === 'dark' ? 'auto' : 'light';
-    this.setTheme(next);
+  initialize(): void {
+    console.log('[ThemeService] initialize() called');
+    this.applyThemeToDOM(this.resolvedTheme());
   }
 
   // ----------------------------------------
@@ -98,72 +108,101 @@ export class ThemeService {
   // ----------------------------------------
 
   /**
-   * Apply theme to the document
+   * Get stored theme from localStorage
    */
-  private applyTheme(theme: ResolvedTheme, withTransition = true): void {
-    const html = this.document.documentElement;
-
-    if (withTransition) {
-      // Add transition class for smooth theme change
-      html.classList.add(THEME_TRANSITION_CLASS);
-
-      // Remove transition class after animation completes
-      setTimeout(() => {
-        html.classList.remove(THEME_TRANSITION_CLASS);
-      }, TRANSITION_DURATION);
+  private getStoredTheme(): Theme {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return 'auto';
     }
 
-    // Apply theme attribute
-    html.setAttribute('data-theme', theme);
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored && ['light', 'dark', 'auto'].includes(stored)) {
+        return stored as Theme;
+      }
+    } catch (e) {
+      console.warn('[ThemeService] Error reading localStorage:', e);
+    }
 
-    // Update meta theme-color for mobile browsers
+    return 'auto';
+  }
+
+  /**
+   * Store theme in localStorage
+   */
+  private storeTheme(theme: Theme): void {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return;
+    }
+
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+      console.log('[ThemeService] Theme stored:', theme);
+    } catch (e) {
+      console.warn('[ThemeService] Error writing localStorage:', e);
+    }
+  }
+
+  /**
+   * Detect system theme preference
+   */
+  private detectSystemTheme(): ResolvedTheme {
+    if (typeof window === 'undefined') {
+      return 'dark'; // Default for SSR
+    }
+
+    try {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      console.log('[ThemeService] System prefers dark:', prefersDark);
+      return prefersDark ? 'dark' : 'light';
+    } catch (e) {
+      console.warn('[ThemeService] Error detecting system theme:', e);
+      return 'dark';
+    }
+  }
+
+  /**
+   * Apply theme to DOM using Renderer2
+   */
+  private applyThemeToDOM(theme: ResolvedTheme): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    console.log('[ThemeService] Applying to DOM:', theme);
+
+    // Use Renderer2 for SSR compatibility
+    const html = document.documentElement;
+    this.renderer.setAttribute(html, 'data-theme', theme);
+
+    // Also add transition class for smooth changes
+    this.renderer.addClass(html, 'theme-transition');
+    setTimeout(() => {
+      this.renderer.removeClass(html, 'theme-transition');
+    }, 300);
+
+    // Update meta theme-color
     this.updateMetaThemeColor(theme);
   }
 
   /**
-   * Get stored theme from localStorage
-   */
-  private getStoredTheme(): Theme {
-    if (typeof window === 'undefined') return 'auto';
-
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && ['light', 'dark', 'auto'].includes(stored)) {
-      return stored as Theme;
-    }
-    return 'auto'; // Default to auto
-  }
-
-  /**
-   * Store theme preference in localStorage
-   */
-  private storeTheme(theme: Theme): void {
-    if (typeof window === 'undefined') return;
-    localStorage.setItem(STORAGE_KEY, theme);
-  }
-
-  /**
-   * Get system theme preference
-   */
-  private getSystemTheme(): ResolvedTheme {
-    if (typeof window === 'undefined') return 'dark';
-    return this.mediaQuery?.matches ? 'dark' : 'light';
-  }
-
-  /**
-   * Update meta theme-color for mobile browser chrome
+   * Update meta theme-color for mobile browsers
    */
   private updateMetaThemeColor(theme: ResolvedTheme): void {
-    const metaThemeColor = this.document.querySelector('meta[name="theme-color"]');
-    const color = theme === 'dark' ? '#1c1917' : '#ffffff';
+    if (typeof document === 'undefined') {
+      return;
+    }
 
-    if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', color);
+    const color = theme === 'dark' ? '#1c1917' : '#ffffff';
+    let meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement;
+
+    if (meta) {
+      meta.content = color;
     } else {
-      // Create meta tag if it doesn't exist
-      const meta = this.document.createElement('meta');
+      meta = document.createElement('meta');
       meta.name = 'theme-color';
       meta.content = color;
-      this.document.head.appendChild(meta);
+      document.head.appendChild(meta);
     }
   }
 }

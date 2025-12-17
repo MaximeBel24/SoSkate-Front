@@ -9,7 +9,7 @@
 // TABLE WRAPPER
 // ============================================
 .table-wrapper {
-  background: linear-gradient(135deg, var(--surface-primary), var(--surface-secondary));
+  background: linear-gradient(135deg, var(--bg-surface), var(--bg-secondary));
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
@@ -35,7 +35,7 @@
   // TABLE HEADER
   // ============================================
   thead {
-    background: linear-gradient(to right, var(--primary), var(--gray-700));
+    background: linear-gradient(to right, var(--bg-surface), var(--bg-secondary));
 
     tr {
       border-bottom: 2px solid var(--premium);
@@ -63,12 +63,12 @@
   // ============================================
   tbody {
     tr {
-      background-color: var(--surface-row);
+      background-color: var(--bg-row);
       border-bottom: 1px solid var(--border-subtle);
       transition: all var(--transition-normal);
 
       &:hover {
-        background-color: var(--surface-hover);
+        background-color: var(--bg-surface-hover);
         transform: translateX(4px);
         box-shadow: -4px 0 0 var(--premium);
       }
@@ -80,7 +80,7 @@
 
     td {
       padding: 16px 12px;
-      color: var(--text-color);
+      color: var(--text-primary);
       font-size: 0.875rem;
       vertical-align: middle;
 
@@ -123,7 +123,7 @@
 
   .name-primary {
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--text-primary);
     font-size: 0.95rem;
   }
 
@@ -150,12 +150,12 @@
   gap: 2px;
 
   .address-main {
-    color: var(--text-color);
+    color: var(--text-primary);
     font-weight: 500;
   }
 
   .address-secondary {
-    color: var(--gray-100);
+    color: var(--text-secondary);
     font-size: 0.8rem;
   }
 }
@@ -173,7 +173,7 @@
   font-size: 0.8rem;
 
   .coord-item {
-    color: var(--gray-100);
+    color: var(--text-secondary);
   }
 
   .coord-label {
@@ -200,7 +200,7 @@
   font-size: 0.8rem;
 
   .date-item {
-    color: var(--gray-100);
+    color: var(--text-secondary);
   }
 
   .date-label {

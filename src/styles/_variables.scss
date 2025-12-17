@@ -21,8 +21,14 @@
   --bg-surface-hover: rgba(44, 58, 71, 0.8);
   --bg-row: rgba(28, 25, 23, 0.6);
   --bg-row-alt: transparent;
-  --bg-input: rgba(28, 25, 23, 0.8);
+  --bg-input: rgba(28, 25, 23, 0.9);
+  --bg-input-focus: rgba(28, 25, 23, 1);
   --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  // ----------------------------------------
+  // INPUT SHADOWS
+  // ----------------------------------------
+  --shadow-input: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 
   // ----------------------------------------
   // SEMANTIC COLORS - Text
@@ -121,8 +127,14 @@
   --bg-surface-hover: #e2e8f0;
   --bg-row: #f1f5f9;
   --bg-row-alt: #ffffff;
-  --bg-input: #f8fafc;
+  --bg-input: #ffffff;
+  --bg-input-focus: #ffffff;
   --bg-overlay: rgba(0, 0, 0, 0.3);
+
+  // ----------------------------------------
+  // INPUT SHADOWS (softer for light mode)
+  // ----------------------------------------
+  --shadow-input: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 
   // ----------------------------------------
   // SEMANTIC COLORS - Text

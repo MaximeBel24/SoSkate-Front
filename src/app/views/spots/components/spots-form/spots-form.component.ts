@@ -15,7 +15,7 @@ import { PhotoEntityType, PhotoType } from '../../../../shared/models/photo.type
 
 // Composants partagés
 import { ConfirmationModalComponent } from '../../../../components/confirmation-modal/confirmation-modal.component';
-import { PhotoUploaderComponent } from '../../../../components/photo-uploader/photo-uploader.component';
+import { PhotoUploaderComponent } from '../../../../components/form/photo-uploader/photo-uploader.component';
 
 // Composants de formulaire
 import {FormHeaderComponent} from '../../../../components/form/form-header/form-header.component';

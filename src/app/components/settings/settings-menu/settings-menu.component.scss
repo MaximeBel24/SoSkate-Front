@@ -1,0 +1,129 @@
+// ============================================
+// 🛹 SETTINGS MENU COMPONENT
+// ============================================
+
+.settings-menu {
+  position: relative;
+
+  // ----------------------------------------
+  // Trigger Button
+  // ----------------------------------------
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover,
+    &--active {
+      background-color: var(--premium);
+      color: var(--text-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--premium);
+      outline-offset: 2px;
+    }
+  }
+
+  // ----------------------------------------
+  // Gear Icon
+  // ----------------------------------------
+  &__icon {
+    width: 20px;
+    height: 20px;
+    transition: transform var(--transition-normal);
+
+    &--spinning {
+      transform: rotate(90deg);
+    }
+  }
+
+  // ----------------------------------------
+  // Dropdown Menu
+  // ----------------------------------------
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 240px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-dropdown);
+    overflow: hidden;
+
+    // Animation
+    animation: dropdownFadeIn 0.2s ease-out;
+  }
+
+  // ----------------------------------------
+  // Header
+  // ----------------------------------------
+  &__header {
+    padding: 16px;
+    background-color: var(--bg-secondary);
+  }
+
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  // ----------------------------------------
+  // Divider
+  // ----------------------------------------
+  &__divider {
+    height: 1px;
+    background-color: var(--border-subtle);
+  }
+
+  // ----------------------------------------
+  // Generic Item (for future options)
+  // ----------------------------------------
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background-color: var(--premium);
+    }
+
+    span:last-child {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  }
+}
+
+// ============================================
+// ANIMATION
+// ============================================
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
