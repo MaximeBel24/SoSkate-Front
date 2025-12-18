@@ -28,14 +28,14 @@ import {InfoCardComponent} from '../../../../components/form/info-card/info-card
 import {ValidationSummaryComponent} from '../../../../components/form/validation-summary/validation-summary.component';
 
 // Icônes
-import {IconInfoComponent} from '../../../../components/icons/icon-info/icon-info.component';
-import {IconSunComponent} from '../../../../components/icons/icon-sun/icon-sun.component';
-import {IconHomeComponent} from '../../../../components/icons/icon-home/icon-home.component';
-import {IconCheckCircleComponent} from '../../../../components/icons/icon-check-circle/icon-check-circle.component';
-import {IconBanComponent} from '../../../../components/icons/icon-ban/icon-ban.component';
-import {IconImageComponent} from '../../../../components/icons/icon-image/icon-image.component';
-import {IconLocationComponent} from '../../../../components/icons/icon-location/icon-location.component';
-import {IconActivityComponent} from '../../../../components/icons/icon-activity/icon-activity.component';
+import {IconInfoComponent} from '../../../../components/icons/icon-info.component';
+import {IconSunComponent} from '../../../../components/icons/icon-sun.component';
+import {IconHomeComponent} from '../../../../components/icons/icon-home.component';
+import {IconCheckCircleComponent} from '../../../../components/icons/icon-check-circle.component';
+import {IconBanComponent} from '../../../../components/icons/icon-ban.component';
+import {IconImageComponent} from '../../../../components/icons/icon-image.component';
+import {IconLocationComponent} from '../../../../components/icons/icon-location.component';
+import {IconActivityComponent} from '../../../../components/icons/icon-activity.component';
 
 @Component({
   selector: 'app-spots-form',

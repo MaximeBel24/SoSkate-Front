@@ -1,9 +1,9 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgSwitch } from '@angular/common';
 
 // Services
 import { ServiceService } from '../../../../shared/services/service.service';
@@ -31,11 +31,11 @@ import {FormActionsComponent} from '../../../../components/form/form-actions/for
 import {ValidationSummaryComponent} from '../../../../components/form/validation-summary/validation-summary.component';
 
 // Icônes
-import {IconInfoComponent} from '../../../../components/icons/icon-info/icon-info.component';
-import {IconDollarComponent} from '../../../../components/icons/icon-dollar/icon-dollar.component';
-import {IconActivityComponent} from '../../../../components/icons/icon-activity/icon-activity.component';
-import {IconCheckCircleComponent} from '../../../../components/icons/icon-check-circle/icon-check-circle.component';
-import {IconBanComponent} from '../../../../components/icons/icon-ban/icon-ban.component';
+import {IconInfoComponent} from '../../../../components/icons/icon-info.component';
+import {IconDollarComponent} from '../../../../components/icons/icon-dollar.component';
+import {IconActivityComponent} from '../../../../components/icons/icon-activity.component';
+import {IconCheckCircleComponent} from '../../../../components/icons/icon-check-circle.component';
+import {IconBanComponent} from '../../../../components/icons/icon-ban.component';
 
 @Component({
   selector: 'app-services-form',
@@ -43,7 +43,6 @@ import {IconBanComponent} from '../../../../components/icons/icon-ban/icon-ban.c
   imports: [
     ReactiveFormsModule,
     NgSwitch,
-    NgSwitchCase,
 
     // Pipes
     DurationPipe,

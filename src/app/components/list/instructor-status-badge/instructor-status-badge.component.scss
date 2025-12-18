@@ -1,0 +1,36 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .9rem;
+  border: 1px solid transparent;
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .9;
+  }
+}
+
+.is-active {
+  color: #31d158;
+  border-color: rgba(49, 209, 88, .45);
+  background: rgba(49, 209, 88, .10);
+}
+
+.is-invited {
+  color: #4da3ff;
+  border-color: rgba(77, 163, 255, .45);
+  background: rgba(77, 163, 255, .10);
+}
+
+.is-suspended {
+  color: #ff4d4d;
+  border-color: rgba(255, 77, 77, .45);
+  background: rgba(255, 77, 77, .10);
+}

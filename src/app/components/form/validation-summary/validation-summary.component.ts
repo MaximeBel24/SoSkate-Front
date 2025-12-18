@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {IconAlertCircleComponent} from '../../icons/icon-alert-circle/icon-alert-circle.component';
+import {IconAlertCircleComponent} from '../../icons/icon-alert-circle.component';
 
 @Component({
   selector: 'app-validation-summary',

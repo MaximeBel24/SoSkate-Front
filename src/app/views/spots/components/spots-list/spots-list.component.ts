@@ -14,7 +14,7 @@ import { EmptyStateComponent } from '../../../../components/list/empty-state/emp
 import { CellIdComponent } from '../../../../components/list/table-cells/cell-id.component';
 import { CellStatusComponent } from '../../../../components/list/table-cells/cell-status.component';
 import { CellDatesComponent } from '../../../../components/list/table-cells/cell-dates.component';
-import { CellActionsComponent } from '../../../../components/list/table-cells/cell-actions.component';
+import { CellActionsComponent } from '../../../../components/list/table-cells/cell-actions/cell-actions.component';
 
 @Component({
   selector: 'app-spots-list',

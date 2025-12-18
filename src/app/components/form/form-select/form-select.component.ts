@@ -1,6 +1,5 @@
 import {Component, Input, forwardRef, ContentChild, TemplateRef, HostBinding} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { NgTemplateOutlet } from '@angular/common';
 
 export interface SelectOption {
   value: any;
@@ -11,7 +10,7 @@ export interface SelectOption {
 
 @Component({
   selector: 'app-form-select',
-  imports: [ReactiveFormsModule, NgTemplateOutlet],
+  imports: [ReactiveFormsModule],
   templateUrl: './form-select.component.html',
   styleUrl: './form-select.component.scss',
   providers: [

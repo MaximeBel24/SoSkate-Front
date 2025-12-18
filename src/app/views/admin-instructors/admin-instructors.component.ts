@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import {SectionLayoutComponent} from '../../components/section-layout/section-layout.component';
 
 @Component({
-  selector: 'app-services',
+  selector: 'app-admin-instructors',
   imports: [
     SectionLayoutComponent
   ],
-  template: `<app-section-layout sectionName="prestation" gender="F" />`
+  template: `<app-section-layout sectionName="professeur" />`
 })
-export class ServicesComponent {}
+export class AdminInstructorsComponent {
+
+}

@@ -8,5 +8,9 @@ export const routes: Routes = [
   {
     path: 'services',
     loadChildren: async () => (await import('./views/services/services.routes')).routes
+  },
+  {
+    path: 'instructors',
+    loadChildren: async () => (await import('./views/admin-instructors/admin-intructors.routes')).routes
   }
 ];

@@ -1,13 +1,12 @@
 import { Component, Input, Output, EventEmitter, TemplateRef, ContentChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgTemplateOutlet } from '@angular/common';
-import {IconArrowLeftComponent} from '../../icons/icon-arrow-left/icon-arrow-left.component';
-import {IconCheckComponent} from '../../icons/icon-check/icon-check.component';
+import {IconArrowLeftComponent} from '../../icons/icon-arrow-left.component';
+import {IconCheckComponent} from '../../icons/icon-check.component';
 
 @Component({
   selector: 'app-form-actions',
   standalone: true,
-  imports: [RouterLink, NgTemplateOutlet, IconArrowLeftComponent, IconCheckComponent],
+  imports: [RouterLink, IconArrowLeftComponent, IconCheckComponent],
   templateUrl: './form-actions.component.html',
   styleUrl: './form-actions.component.scss'
 })

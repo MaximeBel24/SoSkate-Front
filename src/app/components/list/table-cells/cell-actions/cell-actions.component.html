@@ -1,0 +1,66 @@
+<!-- cell-actions.component.html -->
+<td class="col-actions">
+  <div class="actions-container">
+
+    <!-- Modifier -->
+    @if (showEdit) {
+      <a [routerLink]="editLink" class="btn-action btn-edit" title="Modifier">
+        <app-icon-edit [size]="14" />
+        <span>Modifier</span>
+      </a>
+    }
+
+    <!-- Supprimer -->
+    @if (showDelete) {
+      <button
+        type="button"
+        class="btn-action btn-delete"
+        (click)="delete.emit()"
+        title="Supprimer"
+      >
+        <app-icon-delete [size]="14" />
+        <span>Supprimer</span>
+      </button>
+    }
+
+    <!-- Suspendre -->
+    @if (showSuspend) {
+      <button
+        type="button"
+        class="btn-action btn-suspend"
+        (click)="suspend.emit()"
+        title="Suspendre le compte"
+      >
+        <app-icon-pause-circle [size]="14" />
+        <span>Suspendre</span>
+      </button>
+    }
+
+    <!-- Réactiver -->
+    @if (showReactivate) {
+      <button
+        type="button"
+        class="btn-action btn-reactivate"
+        (click)="reactivate.emit()"
+        title="Réactiver le compte"
+      >
+        <app-icon-play-circle [size]="14" />
+        <span>Réactiver</span>
+      </button>
+    }
+
+    <!-- Réinviter -->
+    @if (showResendInvite) {
+      <button
+        type="button"
+        class="btn-action btn-resend"
+        (click)="resendInvite.emit()"
+        title="Renvoyer l'invitation"
+      >
+        <app-icon-refresh [size]="14" />
+        <span>Réinviter</span>
+      </button>
+    }
+
+  </div>
+</td>

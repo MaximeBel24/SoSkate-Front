@@ -1,5 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 // Services
 import { ServiceService } from '../../../../shared/services/service.service';
@@ -12,14 +11,12 @@ import { PricePipe } from '../../../../shared/pipes/price.pipe';
 // Composants partagés
 import { ConfirmationModalComponent } from '../../../../components/confirmation-modal/confirmation-modal.component';
 import {ListHeaderComponent} from '../../../../components/list/list-header/list-header.component';
-
 import {EmptyStateComponent} from '../../../../components/list/empty-state/empty-state.component';
-
 
 // Composants de cellules de tableau
 import {CellStatusComponent} from '../../../../components/list/table-cells/cell-status.component';
 import {CellDatesComponent} from '../../../../components/list/table-cells/cell-dates.component';
-import {CellActionsComponent} from '../../../../components/list/table-cells/cell-actions.component';
+import {CellActionsComponent} from '../../../../components/list/table-cells/cell-actions/cell-actions.component';
 import {CellIdComponent} from '../../../../components/list/table-cells/cell-id.component';
 
 @Component({

@@ -1,0 +1,193 @@
+<div class="form-container">
+  <!-- Header -->
+  <app-form-header
+    title="Inviter un professeur"
+    subtitle="Envoyez une invitation à un nouveau professeur de skateboard"
+  />
+
+  <!-- Form -->
+  <form [formGroup]="instructorForm" (ngSubmit)="submit()" class="form-body">
+
+    <!-- Section: Informations personnelles -->
+    <app-form-section title="Informations personnelles">
+      <ng-template #icon>
+        <app-icon-user [size]="20" />
+      </ng-template>
+
+      <div class="form-grid">
+        <!-- Prénom -->
+        <app-form-input
+          label="Prénom"
+          inputId="firstname"
+          formControlName="firstname"
+          placeholder="Ex: Tony"
+          [required]="true"
+          [hasError]="instructorForm.get('firstname')?.invalid ?? false"
+          [touched]="instructorForm.get('firstname')?.touched ?? false"
+          errorMessage="Le prénom est requis (2-50 caractères)"
+        />
+
+        <!-- Nom -->
+        <app-form-input
+          label="Nom"
+          inputId="lastname"
+          formControlName="lastname"
+          placeholder="Ex: Hawk"
+          [required]="true"
+          [hasError]="instructorForm.get('lastname')?.invalid ?? false"
+          [touched]="instructorForm.get('lastname')?.touched ?? false"
+          errorMessage="Le nom est requis (2-50 caractères)"
+        />
+
+        <!-- Email -->
+        <app-form-input
+          label="Adresse email"
+          inputId="email"
+          type="email"
+          formControlName="email"
+          placeholder="Ex: tony.hawk@skate.com"
+          [required]="true"
+          [fullWidth]="true"
+          [hasError]="instructorForm.get('email')?.invalid ?? false"
+          [touched]="instructorForm.get('email')?.touched ?? false"
+          [errorMessage]="getEmailErrorMessage()"
+        />
+
+        <!-- Téléphone -->
+        <app-form-input
+          label="Téléphone"
+          inputId="phone"
+          type="tel"
+          formControlName="phone"
+          placeholder="Ex: 06 12 34 56 78"
+          [required]="false"
+          [hasError]="instructorForm.get('phone')?.invalid ?? false"
+          [touched]="instructorForm.get('phone')?.touched ?? false"
+          errorMessage="Format de téléphone invalide"
+        />
+      </div>
+    </app-form-section>
+
+    <!-- Section: Informations professionnelles (optionnel) -->
+    <app-form-section title="Informations professionnelles">
+      <ng-template #icon>
+        <app-icon-award [size]="20" />
+      </ng-template>
+
+      <!-- Info message -->
+      <div class="section-info">
+        <app-icon-info [size]="16" />
+        <span>Ces informations sont optionnelles. Le professeur pourra les compléter après son inscription.</span>
+      </div>
+
+      <div class="form-grid">
+        <!-- Spécialité -->
+        <app-form-select
+          label="Spécialité"
+          selectId="specialty"
+          formControlName="specialty"
+          [options]="specialtyOptions"
+          placeholder="Sélectionnez une spécialité"
+          [required]="false"
+          [hasError]="instructorForm.get('specialty')?.invalid ?? false"
+          [touched]="instructorForm.get('specialty')?.touched ?? false"
+        />
+
+        <!-- Années d'expérience -->
+        <app-form-input
+          label="Années d'expérience"
+          inputId="yearsOfExperience"
+          type="number"
+          formControlName="yearsOfExperience"
+          placeholder="Ex: 5"
+          [required]="false"
+          [hasError]="instructorForm.get('yearsOfExperience')?.invalid ?? false"
+          [touched]="instructorForm.get('yearsOfExperience')?.touched ?? false"
+          errorMessage="L'expérience doit être entre 0 et 50 ans"
+        />
+      </div>
+
+      <!-- Info cards - Spécialités -->
+      @if (instructorForm.get('specialty')?.value) {
+        <div class="info-cards">
+          <app-info-card
+            [title]="getSpecialtyTitle()"
+            [description]="getSpecialtyDescription()"
+            [isActive]="true"
+          >
+            <ng-template #icon>
+              <app-icon-activity [size]="24" />
+            </ng-template>
+          </app-info-card>
+        </div>
+      }
+    </app-form-section>
+
+    <!-- Section: Récapitulatif de l'invitation -->
+    <app-form-section title="Récapitulatif de l'invitation">
+      <ng-template #icon>
+        <app-icon-mail [size]="20" />
+      </ng-template>
+
+      <div class="invitation-summary">
+        <div class="summary-icon">
+          <app-icon-send [size]="32" />
+        </div>
+        <div class="summary-content">
+          <h4>Un email d'invitation sera envoyé</h4>
+          <p>
+            Le professeur recevra un email contenant un lien pour activer son compte
+            et compléter son profil. L'invitation expirera après 7 jours.
+          </p>
+        </div>
+      </div>
+
+      <!-- Preview de l'invitation -->
+      @if (instructorForm.get('email')?.valid && instructorForm.get('firstname')?.valid) {
+        <div class="invitation-preview">
+          <div class="preview-header">
+            <span class="preview-label">Aperçu de l'invitation</span>
+          </div>
+          <div class="preview-content">
+            <p class="preview-greeting">Bonjour <strong>{{ instructorForm.get('firstname')?.value }}</strong>,</p>
+            <p class="preview-text">
+              Vous avez été invité(e) à rejoindre la plateforme SoSkate en tant que professeur de skateboard.
+            </p>
+            <p class="preview-email">
+              <app-icon-mail [size]="14" />
+              <span>{{ instructorForm.get('email')?.value }}</span>
+            </p>
+          </div>
+        </div>
+      }
+    </app-form-section>
+
+    <!-- Form Actions -->
+    <app-form-actions
+      [cancelLink]="['..', 'list']"
+      submitText="Envoyer l'invitation"
+      [isLoading]="isLoading()"
+      [isInvalid]="instructorForm.invalid"
+    />
+
+    <!-- Validation Summary -->
+    <app-validation-summary
+      [isInvalid]="instructorForm.invalid"
+      [isTouched]="instructorForm.touched"
+    />
+  </form>
+</div>
+
+<!-- Modal de confirmation -->
+<app-confirmation-modal
+  [isOpen]="confirmModal.isOpen"
+  [type]="'info'"
+  [title]="'Confirmer l\'invitation'"
+  [message]="'Êtes-vous sûr de vouloir envoyer une invitation à ' + instructorForm.get('firstname')?.value + ' ' + instructorForm.get('lastname')?.value + ' (' + instructorForm.get('email')?.value + ') ?'"
+  [confirmText]="'Envoyer l\'invitation'"
+  [cancelText]="'Annuler'"
+  [isLoading]="confirmModal.isLoading"
+  (confirm)="confirmInvitation()"
+  (cancel)="closeConfirmModal()"
+  (close)="closeConfirmModal()"
+/>

@@ -1,0 +1,170 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// INSTRUCTORS LIST - STYLES COMPLETS AVEC AMÉLIORATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VALEURS VIDES (Amélioration 2)
+// ─────────────────────────────────────────────────────────────────────────────
+.empty-value {
+  color: var(--text-muted, #6b7280);
+  cursor: help;
+  user-select: none;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COLONNE EXPÉRIENCE
+// ─────────────────────────────────────────────────────────────────────────────
+.col-exp {
+  width: 80px;
+  text-align: center;
+}
+
+.cell-exp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .exp-value {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COLONNE RÉSEAUX SOCIAUX (Amélioration 1)
+// ─────────────────────────────────────────────────────────────────────────────
+.col-socials {
+  width: 100px;
+  text-align: center;
+}
+
+.cell-socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+
+    // État actif (lien cliquable)
+    &.active {
+      color: var(--text-secondary, #9ca3af);
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &.instagram:hover {
+        color: #E4405F;
+        background-color: rgba(228, 64, 95, 0.1);
+      }
+
+      &.youtube:hover {
+        color: #FF0000;
+        background-color: rgba(255, 0, 0, 0.1);
+      }
+    }
+
+    // État désactivé (icône grisée)
+    &.disabled {
+      color: var(--text-muted, #4b5563);
+      opacity: 0.4;
+      cursor: help;
+    }
+  }
+
+  .social-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COLONNE DATE
+// ─────────────────────────────────────────────────────────────────────────────
+.col-date {
+  width: 110px;
+  text-align: center;
+}
+
+.cell-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .date-value {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .date-invited {
+    color: var(--color-info, #3b82f6);
+    cursor: help;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// LIGNE SUSPENDUE (Amélioration 4)
+// ─────────────────────────────────────────────────────────────────────────────
+.row-suspended {
+  //background-color: rgba(239, 68, 68, 0.05);
+  background-color: rgba(239, 68, 68, 0.3);
+
+  // Légère bordure gauche rouge pour renforcer l'indication
+  position: relative;
+
+  //&::before {
+  //  content: '';
+  //  position: absolute;
+  //  left: 0;
+  //  top: 0;
+  //  bottom: 0;
+  //  width: 3px;
+  //}
+
+  // Réduire légèrement l'opacité du contenu
+  td {
+    opacity: 0.85;
+  }
+
+  // Garder le badge et les actions bien visibles
+  .col-status,
+  .col-actions {
+    opacity: 1;
+  }
+
+  // Au survol, remettre l'opacité normale
+  &:hover {
+    background-color: rgba(239, 68, 68, 0.08);
+
+    td {
+      opacity: 1;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RESPONSIVE
+// ─────────────────────────────────────────────────────────────────────────────
+@media (max-width: 1200px) {
+  .col-socials,
+  .col-date {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .col-exp {
+    display: none;
+  }
+}

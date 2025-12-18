@@ -1,11 +1,10 @@
-import {Component, Input, forwardRef, signal, HostBinding} from '@angular/core';
+import {Component, Input, forwardRef, HostBinding} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-form-input',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule],
   templateUrl: './form-input.component.html',
   styleUrl: './form-input.component.scss',
   providers: [

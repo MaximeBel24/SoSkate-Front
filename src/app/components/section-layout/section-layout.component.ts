@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import {IconPlusComponent} from '../icons/icon-plus/icon-plus.component';
 
 @Component({
   selector: 'app-section-layout',
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, IconPlusComponent],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './section-layout.component.html',
   styleUrl: './section-layout.component.scss'
 })

@@ -1,0 +1,153 @@
+// ============================================
+// 🛹 INSTRUCTORS FORM - STYLES SPÉCIFIQUES
+// ============================================
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SECTION INFO MESSAGE
+// ─────────────────────────────────────────────────────────────────────────────
+.section-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--info-bg), transparent);
+  border: 1px solid var(--info);
+  border-radius: var(--radius);
+  color: var(--info);
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  app-icon-info {
+    flex-shrink: 0;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INVITATION SUMMARY
+// ─────────────────────────────────────────────────────────────────────────────
+.invitation-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--premium-bg-subtle), transparent);
+  border: 2px solid var(--premium-border);
+  border-radius: var(--radius-lg);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--premium), var(--premium-hover));
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  app-icon-send {
+    color: var(--text-inverse);
+  }
+}
+
+.summary-content {
+  flex: 1;
+
+  h4 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INVITATION PREVIEW
+// ─────────────────────────────────────────────────────────────────────────────
+.invitation-preview {
+  margin-top: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+.preview-header {
+  padding: 10px 16px;
+  background-color: var(--bg-row);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.preview-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.preview-content {
+  padding: 20px;
+  background-color: var(--bg-surface);
+}
+
+.preview-greeting {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+
+  strong {
+    color: var(--premium);
+  }
+}
+
+.preview-text {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.preview-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--bg-row);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-family: monospace;
+
+  app-icon-mail {
+    color: var(--premium);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ANIMATIONS
+// ─────────────────────────────────────────────────────────────────────────────
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
