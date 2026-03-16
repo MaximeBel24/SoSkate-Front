@@ -63,18 +63,32 @@
 
     <!-- User Profile -->
     <div class="user-profile">
-      <button class="profile-btn">
+      <button class="profile-btn" (click)="toggleProfileMenu()">
         <div class="avatar">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
             <circle cx="12" cy="7" r="4"/>
           </svg>
         </div>
-        <span class="username xs-hide">Admin</span>
+        <span class="username xs-hide">{{ authService.currentUser()?.firstName ?? 'Admin' }}</span>
         <svg class="chevron xs-hide" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </button>
+
+      @if (isProfileMenuOpen()) {
+        <div class="profile-dropdown">
+          <div class="profile-info">
+            <span class="profile-name">{{ authService.currentUser()?.firstName }}</span>
+            <span class="profile-email">{{ authService.currentUser()?.email }}</span>
+          </div>
+          <hr>
+          <button class="dropdown-item logout-btn" (click)="logout()">
+            <!-- icône logout SVG -->
+            Se déconnecter
+          </button>
+        </div>
+      }
     </div>
 
     <!-- Mobile Menu Toggle -->

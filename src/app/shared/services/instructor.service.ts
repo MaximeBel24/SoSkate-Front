@@ -2,7 +2,7 @@ import {inject, Injectable, resource} from '@angular/core';
 import {environment} from '../../../environments/environment.development';
 import {HttpClient} from '@angular/common/http';
 import {InstructorCreateRequest, InstructorResponse} from '../interfaces/instructor.interface';
-import {SpotRequest, SpotResponse} from '../interfaces/spot.interface';
+import {firstValueFrom} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,67 +13,28 @@ export class InstructorService {
   private http = inject(HttpClient);
 
   instructorsResources = resource({
-    loader: async (): Promise<InstructorResponse[]> => (await fetch(this.baseUrl)).json(),
+    loader: () => firstValueFrom(this.http.get<InstructorResponse[]>(this.baseUrl)),
   })
 
   async createInstructor(instructorToCreate: InstructorCreateRequest): Promise<InstructorResponse> {
-    const response = await fetch(`${this.baseUrl}`, {
-      method: 'POST',
-      body: JSON.stringify(instructorToCreate),
-      headers: {
-        'Content-type': 'application/json',
-      },
-    });
-    const body = await response.json();
-    if (response.ok) {
-      this.instructorsResources.reload();
-    } else {
-      throw new Error(body);
-    }
+    const body = await firstValueFrom(this.http.post<InstructorResponse>(this.baseUrl, instructorToCreate));
+    this.instructorsResources.reload();
     return body;
   }
 
   async resendInvitation(instructorId: number) {
-    const response = await fetch(`${this.baseUrl}/${instructorId}/resend-invitation`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-    });
-    if(response.ok) {
-      this.instructorsResources.reload();
-    } else {
-      console.log('Erreur lors de la suspension')
-    }
+    await firstValueFrom(this.http.patch(`${this.baseUrl}/${instructorId}/resend`, {}));
+    this.instructorsResources.reload();
   }
 
   async suspendInstructor(instructorId: number) {
-    const response = await fetch(`${this.baseUrl}/${instructorId}/suspend`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-    });
-    if(response.ok) {
-      this.instructorsResources.reload();
-    } else {
-      console.log('Erreur lors de la suspension')
-    }
+    await firstValueFrom(this.http.patch(`${this.baseUrl}/${instructorId}/suspend`, {}));
+    this.instructorsResources.reload();
   }
 
   async reactivateInstructor(instructorId: number) {
-    const response = await fetch(`${this.baseUrl}/${instructorId}/reactivate`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-    });
-    if(response.ok) {
-      this.instructorsResources.reload();
-    } else {
-      console.log('Erreur lors de la suspension')
-    }
+    await firstValueFrom(this.http.patch(`${this.baseUrl}/${instructorId}/reactivate`, {}));
+    this.instructorsResources.reload();
   }
-
 
 }

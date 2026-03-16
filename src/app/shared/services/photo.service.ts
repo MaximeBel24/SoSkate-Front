@@ -184,26 +184,6 @@ export class PhotoService {
     );
   }
 
-  // /**
-  //  * Récupère les photos d'une entité spécifique
-  //  */
-  // async getPhotosByEntity(
-  //   entityType: PhotoEntityType,
-  //   entityId: number,
-  //   photoType?: PhotoType
-  // ): Promise<PhotoResponse[]> {
-  //   const params: Record<string, string> = {
-  //     entityType,
-  //     entityId: entityId.toString(),
-  //   };
-  //
-  //   if (photoType) {
-  //     params.photoType = photoType;
-  //   }
-  //
-  //   return firstValueFrom(this.http.get<PhotoResponse[]>(this.API_URL, { params }));
-  // }
-
   /**
    * Formate la taille d'un fichier en format lisible
    */
