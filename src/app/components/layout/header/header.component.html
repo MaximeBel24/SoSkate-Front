@@ -19,6 +19,17 @@
 
   <!-- Desktop Navigation -->
   <nav class="navbar-menu xs-hide">
+
+    <a routerLink="/dashboard" routerLinkActive="active-nav-link" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"/>
+        <rect x="14" y="3" width="7" height="7"/>
+        <rect x="3" y="14" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/>
+      </svg>
+      <span>Dashboard</span>
+    </a>
+
     <a routerLink="/spots" routerLinkActive="active-nav-link" class="nav-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
@@ -26,10 +37,12 @@
       </svg>
       <span>Spots</span>
     </a>
+
     <a routerLink="/services" routerLinkActive="active-nav-link" class="nav-item">
       <app-icon-dollar />
       <span>Prestations</span>
     </a>
+
     <a routerLink="/instructors" routerLinkActive="active-nav-link" class="nav-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>

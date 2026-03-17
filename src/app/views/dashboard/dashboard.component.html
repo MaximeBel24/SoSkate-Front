@@ -1,0 +1,168 @@
+<div class="dashboard-container">
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">Dashboard</h1>
+    <span class="dashboard-subtitle">Vue d'ensemble de votre plateforme</span>
+  </div>
+
+  @if (dashboard.error()) {
+    <div class="dashboard-error">
+      <h3>Impossible de charger le dashboard</h3>
+      <p>Le serveur est indisponible</p>
+      <button class="btn btn-premium" (click)="dashboard.reload()">Réessayer</button>
+    </div>
+  }
+
+  <!-- Loading state -->
+  @if (dashboard.isLoading()) {
+    <div class="loading-state">
+      <span class="loading-spinner"></span>
+      <span>Chargement des donnees...</span>
+    </div>
+  }
+
+  <!-- KPI Cards -->
+  @if (dashboard.value(); as data) {
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon kpi-icon--premium">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="kpi-content">
+          <span class="kpi-value">{{ data.todayBookings }}</span>
+          <span class="kpi-label">Bookings aujourd'hui</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon kpi-icon--info">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div class="kpi-content">
+          <span class="kpi-value">{{ data.monthBookings }}</span>
+          <span class="kpi-label">Bookings ce mois</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon kpi-icon--success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <line x1="19" y1="8" x2="19" y2="14"/>
+            <line x1="22" y1="11" x2="16" y2="11"/>
+          </svg>
+        </div>
+        <div class="kpi-content">
+          <span class="kpi-value">{{ data.newCustomersThisMonth }}</span>
+          <span class="kpi-label">Nouveaux inscrits ce mois</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tables Section -->
+    <div class="tables-grid">
+      <!-- Recent Bookings -->
+      <div class="dashboard-section">
+        <h2 class="section-title">Derniers bookings</h2>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Prestation</th>
+                <th>Instructeur</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (booking of data.recentBookings; track booking.id) {
+                <tr>
+                  <td>
+                    <div class="cell-dates">
+                      <span class="date-item">{{ booking.date | date:'dd/MM/yyyy' }}</span>
+                      <span class="date-item date-time">{{ booking.date | date:'HH:mm' }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="cell-service">{{ booking.serviceName }}</span>
+                  </td>
+                  <td>
+                    <span>{{ booking.instructorFirstName }} {{ booking.instructorLastName }}</span>
+                  </td>
+                  <td>
+                    <span class="status-badge"
+                      [class.status-active]="booking.status === 'CONFIRMED' || booking.status === 'COMPLETED'"
+                      [class.status-pending]="booking.status === 'OPEN' || booking.status === 'FULL'"
+                      [class.status-inactive]="booking.status === 'CANCELLED'">
+                      <span class="status-dot"></span>
+                      {{ booking.status }}
+                    </span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr class="empty-row">
+                  <td colspan="4">
+                    <div class="empty-state">
+                      <span class="empty-title">Aucun booking</span>
+                      <p class="empty-text">Aucune reservation n'a encore ete effectuee.</p>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Recent Customers -->
+      <div class="dashboard-section">
+        <h2 class="section-title">Derniers inscrits</h2>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Inscription</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (customer of data.recentCustomers; track customer.id) {
+                <tr>
+                  <td>
+                    <span class="cell-customer-name">{{ customer.firstName }} {{ customer.lastName }}</span>
+                  </td>
+                  <td>
+                    <span class="cell-email">{{ customer.email }}</span>
+                  </td>
+                  <td>
+                    <div class="cell-dates">
+                      <span class="date-item">{{ customer.createdAt | date:'dd/MM/yyyy' }}</span>
+                    </div>
+                  </td>
+                </tr>
+              } @empty {
+                <tr class="empty-row">
+                  <td colspan="3">
+                    <div class="empty-state">
+                      <span class="empty-title">Aucun inscrit</span>
+                      <p class="empty-text">Aucun client ne s'est encore inscrit.</p>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+</div>

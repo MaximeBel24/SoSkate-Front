@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import {LayoutComponent} from './components/layout/layout/layout.component';
+import {DashboardComponent} from './views/dashboard/dashboard.component';
 import {authGuard} from './shared/guards/auth.guard'
 import {guestGuard} from './shared/guards/guest.guard'
 
@@ -27,8 +28,12 @@ export const routes: Routes = [
         loadChildren: async () => (await import('./views/admin-instructors/admin-intructors.routes')).routes
       },
       {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+      {
         path: '',
-        redirectTo: 'spots',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       }
     ]
