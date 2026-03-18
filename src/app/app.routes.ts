@@ -28,6 +28,10 @@ export const routes: Routes = [
         loadChildren: async () => (await import('./views/admin-instructors/admin-intructors.routes')).routes
       },
       {
+        path: 'bookings',
+        loadChildren: async () => (await import('./views/bookings/bookings.routes')).routes
+      },
+      {
         path: 'dashboard',
         component: DashboardComponent,
       },

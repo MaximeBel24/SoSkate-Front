@@ -25,3 +25,12 @@ export interface SpotRequest {
   isIndoor: boolean;
   isActive: boolean;
 }
+
+export interface SpotSummary {
+  id: number;
+  name: string;
+  address: string;
+  city: string;
+  latitude: bigint;
+  longitude: bigint;
+}

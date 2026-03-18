@@ -27,6 +27,13 @@ import {IconRefreshComponent} from '../../../icons/icon-refresh.component';
 export class CellActionsComponent {
 
   // ═══════════════════════════════════════════════════════════════════════════
+  // VIEW ACTION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  @Input() showView = false;
+  @Input() viewLink: any[] = [];
+
+  // ═══════════════════════════════════════════════════════════════════════════
   // EDIT ACTION
   // ═══════════════════════════════════════════════════════════════════════════
 
@@ -39,6 +46,13 @@ export class CellActionsComponent {
 
   @Input() showDelete = true;
   @Output() delete = new EventEmitter<void>();
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // CANCEL ACTION
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  @Input() showCancel = true;
+  @Output() cancel = new EventEmitter<void>();
 
   // ═══════════════════════════════════════════════════════════════════════════
   // SUSPEND ACTION (pour les comptes ACTIVE)

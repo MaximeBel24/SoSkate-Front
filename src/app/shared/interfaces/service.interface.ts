@@ -20,3 +20,10 @@ export interface ServiceRequest {
   basePriceCents: number;
   isActive: boolean;
 }
+
+export interface ServiceSummary {
+  id: number;
+  name: string;
+  basePriceCents: number;
+  maxParticipants: number;
+}

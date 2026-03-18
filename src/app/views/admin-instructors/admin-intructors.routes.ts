@@ -2,7 +2,6 @@ import {Routes} from '@angular/router';
 import {AdminInstructorsComponent} from './admin-instructors.component'
 import {InstructorsListComponent} from './components/instructors-list/instructors-list.component';
 import {InstructorsFormComponent} from './components/instructors-form/instructors-form.component';
-import {ServicesFormComponent} from '../services/components/services-form/services-form.component';
 
 export const routes: Routes = [
   {

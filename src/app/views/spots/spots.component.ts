@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {SectionLayoutComponent} from '../../components/section-layout/section-layout.component';
+import {SectionLayoutComponent} from '../../components/layout/section-layout/section-layout.component';
 
 
 @Component({

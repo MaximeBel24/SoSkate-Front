@@ -45,3 +45,17 @@ export interface InstructorCreateRequest {
   /** Optional: Admin can pre-fill years of experience if known @min 0 @max 50 */
   yearsOfExperience?: number | null;
 }
+
+/**
+ * Lightweight response record for instructor data in list views.
+ * Contains only essential information for displaying instructor cards.
+ */
+export interface InstructorSummary {
+  id: number;
+  firstname: string;
+  lastname: string;
+  phone: string;
+  status: IntructorStatus;
+  specialty: SkateSpecialty | null | undefined;
+  yearsOfExperience?: number | null;
+}

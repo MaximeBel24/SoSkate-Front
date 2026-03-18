@@ -34,17 +34,13 @@ import { PhoneFrPipe } from '../../../../shared/pipes/phone-fr.pipe';
   templateUrl: './instructors-list.component.html',
   styleUrl: './instructors-list.component.scss'
 })
-export class InstructorsListComponent implements OnInit {
+export class InstructorsListComponent {
 
   private instructorService = inject(InstructorService);
 
   readonly skateSpecialtyLabel = SkateSpecialtyLabel;
 
   instructors = computed(() => this.instructorService.instructorsResources.value() || []);
-
-  ngOnInit(): void {
-    // Initialisation si nécessaire
-  }
 
   // ═══════════════════════════════════════════════════════════════════════════
   // MODAL DE SUSPENSION
@@ -58,7 +54,11 @@ export class InstructorsListComponent implements OnInit {
     instructorLastname: ''
   };
 
-  openSuspendModal(instructorId: number, instructorFirstname: string, instructorLastname: string): void {
+  openSuspendModal(
+    instructorId: number,
+    instructorFirstname: string,
+    instructorLastname: string
+  ): void {
     this.suspendModal = {
       isOpen: true,
       isLoading: false,

@@ -25,6 +25,12 @@ export class SectionLayoutComponent {
    */
   @Input() gender: 'M' | 'F' = 'M';
 
+  /**
+   * Afficher ou non le lien "Nouveau/Nouvelle"
+   */
+  @Input() showNewButton: boolean = true;
+
+
   get listLabel(): string {
     return `Liste des ${this.sectionNamePlural || this.sectionName + 's'}`;
   }

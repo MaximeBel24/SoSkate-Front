@@ -67,6 +67,28 @@
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// VIEW BUTTON (Premium / Orange)
+// ─────────────────────────────────────────────────────────────────────────────
+.btn-view {
+  color: var(--color-premium, #f97316);
+  border-color: var(--color-premium, #f97316);
+
+  svg {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    background-color: var(--color-premium, #f97316);
+    color: white;
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // EDIT BUTTON (Info / Bleu)
 // ─────────────────────────────────────────────────────────────────────────────
 .btn-edit {

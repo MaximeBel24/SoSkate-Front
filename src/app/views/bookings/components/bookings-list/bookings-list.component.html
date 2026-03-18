@@ -1,0 +1,141 @@
+<div class="list-container">
+  <!-- Header avec titre -->
+  <app-list-header
+    title="Liste des réservations"
+    [count]="bookings().length"
+    countLabel="réservation"
+    [showButton]="false"
+  />
+
+  <div class="filters">
+
+    <select class="filter-select" id="status-filter" [value]="selectedStatus()" (change)="filterByStatus($any($event.target).value)">
+      <option value="">Tous les statuts</option>
+      <option value="OPEN">Ouverts</option>
+      <option value="FULL">Complets</option>
+      <option value="CONFIRMED">Confirmés</option>
+      <option value="COMPLETED">Terminés</option>
+      <option value="CANCELLED">Annulés</option>
+    </select>
+    <input
+      type="text"
+      class="filter-search"
+      placeholder="Rechercher par instructeur, prestation, spot..."
+      [value]="searchQuery()"
+      (input)="searchQuery.set($any($event.target).value)"
+    />
+  </div>
+
+  <!-- Table responsive -->
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+      <tr>
+        <th class="col-id">ID</th>
+        <th class="col-date">Date</th>
+        <th class="col-service">Prestation</th>
+        <th class="col-instructor">Instructeur</th>
+        <th class="col-spot xs-hide">Spot</th>
+        <th class="col-participants xs-hide">Participants</th>
+        <th class="col-status">Statut</th>
+        <th class="col-dates xs-hide">Création</th>
+        <th class="col-actions">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (booking of filteredBookings(); track booking.id) {
+          <tr [class.row-cancelled]="booking.status === 'CANCELLED'">
+            <!-- ID -->
+            <app-cell-id [id]="booking.id" />
+
+            <!-- Date & Heure -->
+            <td class="col-date">
+              <div class="cell-date">
+                <span class="date-primary">{{ booking.startTime | date: 'dd/MM/yyyy' }}</span>
+                <span class="date-secondary">
+                  {{ booking.startTime | date: 'HH:mm' }} - {{ booking.endTime | date: 'HH:mm' }}
+                </span>
+              </div>
+            </td>
+
+            <!-- Prestation -->
+            <td class="col-service">
+              <span class="service-name">{{ booking.service.name}}</span>
+            </td>
+
+            <!-- Instructeur -->
+            <td class="col-instructor">
+              <div class="cell-instructor">
+                <span class="instructor-name">
+                  {{ booking.instructor.firstname}} {{ booking.instructor.lastname }}
+                </span>
+              </div>
+            </td>
+
+            <!-- Spot -->
+            <td class="col-spot xs-hide">
+              <span class="spot-name">{{ booking.spot.name }}</span>
+            </td>
+
+            <!-- Participants -->
+            <td class="col-participants xs-hide">
+              <span class="participants-count">
+                {{ booking.confirmedParticipants }} / {{ booking.maxParticipants }}
+              </span>
+            </td>
+
+            <!-- Statut -->
+            <td class="col-status">
+              <span [class]="'booking-status-badge ' + getStatusClass(booking.status)">
+                <span class="status-dot"></span>
+                {{ getStatusLabel(booking.status) }}
+              </span>
+            </td>
+
+            <!-- Date de création -->
+            <app-cell-dates
+              [createdAt]="booking.createdAt"
+            />
+
+            <app-cell-actions
+              [showView]="true"
+              [viewLink]="['/bookings', booking.id]"
+              [showEdit]="false"
+              [showDelete]="false"
+              [showCancel]="booking.status !== 'CANCELLED' && booking.status !== 'COMPLETED'"
+              (cancel)="openCancelModal(booking.id)"
+              [showSuspend]="false"
+              [showResendInvite]="false"
+              [showReactivate]="false"
+            />
+          </tr>
+        } @empty {
+          <tr class="empty-row">
+            <td colspan="8">
+              <app-empty-state
+                icon="📅"
+                title="Aucune réservation"
+                message="Aucune réservation n'a encore été effectuée sur la plateforme"
+              />
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal d'annulation -->
+
+<app-confirmation-modal
+  [isOpen]="cancelModal.isOpen"
+  [type]="'delete'"
+  [title]="'Annuler la réservation'"
+  [message]="'Êtes-vous sûr de vouloir annuler la réservation'"
+  [confirmText]="'Confirmer'"
+  [cancelText]="'Annuler'"
+  [isLoading]="cancelModal.isLoading"
+  (confirm)="confirmCancel()"
+  (cancel)="closeCancelModal()"
+  (close)="closeCancelModal()"
+/>

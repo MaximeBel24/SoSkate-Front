@@ -1,0 +1,213 @@
+<!-- Loading state -->
+@if (isLoading()) {
+  <div class="detail-loading">
+    <p>Chargement...</p>
+  </div>
+}
+
+<!-- Error state -->
+@if (errorMessage()) {
+  <div class="detail-error">
+    <h3>{{ errorMessage() }}</h3>
+    <a routerLink="/bookings" class="btn btn-secondary">Retour aux reservations</a>
+  </div>
+}
+
+<!-- Content -->
+@if (booking(); as booking) {
+  <!-- Header -->
+  <div class="detail-header">
+    <div class="detail-header-left">
+      <a routerLink="/bookings" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        Retour
+      </a>
+      <h1>Reservation #{{ booking.id }}</h1>
+      <div class="status-row">
+        <span [class]="'booking-status-badge ' + getStatusClass(booking.status)">
+          <span class="status-dot"></span>
+          {{ getStatusLabel(booking.status) }}
+        </span>
+        @if (availableStatuses().length > 0) {
+          <select
+            class="status-select"
+            [disabled]="isUpdatingStatus()"
+            (change)="onStatusChange($event)"
+          >
+            <option value="" selected disabled>Changer le statut</option>
+            @for (status of availableStatuses(); track status) {
+              <option [value]="status">{{ getStatusLabel(status) }}</option>
+            }
+          </select>
+        }
+      </div>
+    </div>
+    <div class="detail-header-actions">
+      @if (canCancel()) {
+        <button class="btn btn-danger" (click)="openCancelModal()">Annuler la reservation</button>
+      }
+    </div>
+  </div>
+
+  <!-- Info cards -->
+  <div class="detail-cards">
+    <!-- Date & Heure -->
+    <div class="detail-card">
+      <div class="card-icon card-icon-date">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+          <line x1="16" x2="16" y1="2" y2="6"/>
+          <line x1="8" x2="8" y1="2" y2="6"/>
+          <line x1="3" x2="21" y1="10" y2="10"/>
+        </svg>
+      </div>
+      <div class="card-content">
+        <span class="card-label">Date & Heure</span>
+        <span class="card-value">{{ booking.startTime | date:'dd/MM/yyyy' }}</span>
+        <span class="card-sub">{{ booking.startTime | date:'HH:mm' }} - {{ booking.endTime | date:'HH:mm' }} ({{ booking.durationMinutes }} min)</span>
+      </div>
+    </div>
+
+    <!-- Prestation -->
+    <div class="detail-card">
+      <div class="card-icon card-icon-service">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" x2="12" y1="2" y2="22"/>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+      <div class="card-content">
+        <span class="card-label">Prestation</span>
+        <span class="card-value">{{ booking.service.name }}</span>
+      </div>
+    </div>
+
+    <!-- Instructeur -->
+    <div class="detail-card">
+      <div class="card-icon card-icon-instructor">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div class="card-content">
+        <span class="card-label">Instructeur</span>
+        <span class="card-value">{{ booking.instructor.firstname }} {{ booking.instructor.lastname }}</span>
+      </div>
+    </div>
+
+    <!-- Spot -->
+    <div class="detail-card">
+      <div class="card-icon card-icon-spot">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div class="card-content">
+        <span class="card-label">Spot</span>
+        <span class="card-value">{{ booking.spot.name }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two columns: Participants + Notes -->
+  <div class="detail-sections">
+
+    <!-- Participants -->
+    <div class="detail-section">
+      <div class="section-header">
+        <h2>Participants ({{ booking.confirmedParticipants }}/{{ booking.maxParticipants }})</h2>
+      </div>
+      @if (booking.participants.length > 0) {
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Places</th>
+                <th>Montant</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (participant of booking.participants; track participant.id) {
+                <tr>
+                  <td class="participant-name">{{ participant.customerName }}</td>
+                  <td>{{ participant.numberOfParticipants }}</td>
+                  <td>{{ (participant.amountCents / 100) | number:'1.2-2' }} &euro;</td>
+                  <td>
+                    <span [class]="'participant-status participant-' + participant.status.toLowerCase()">
+                      {{ getParticipantStatusLabel(participant.status) }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <div class="empty-section">
+          <p>Aucun participant</p>
+        </div>
+      }
+    </div>
+
+    <!-- Notes -->
+    <div class="detail-section">
+      <div class="section-header">
+        <h2>Notes</h2>
+        @if (!editingNotes()) {
+          <button class="btn btn-sm btn-secondary" (click)="startEditNotes()">Modifier</button>
+        }
+      </div>
+      @if (editingNotes()) {
+        <div class="notes-edit">
+          <textarea
+            [(ngModel)]="notesValue"
+            rows="5"
+            placeholder="Ajouter des notes..."
+            class="notes-textarea"
+            maxlength="500"
+          ></textarea>
+          <div class="notes-actions">
+            <button class="btn btn-sm btn-secondary" (click)="cancelEditNotes()" [disabled]="isSavingNotes()">Annuler</button>
+            <button class="btn btn-sm btn-premium" (click)="saveNotes()" [disabled]="isSavingNotes()">
+              @if (isSavingNotes()) { Sauvegarde... } @else { Enregistrer }
+            </button>
+          </div>
+        </div>
+      } @else {
+        <div class="notes-display">
+          @if (booking.notes) {
+            <p>{{ booking.notes }}</p>
+          } @else {
+            <p class="notes-empty">Aucune note</p>
+          }
+        </div>
+      }
+    </div>
+
+  </div>
+
+  <!-- Cancel modal -->
+  @if (cancelModal.isOpen) {
+    <app-confirmation-modal
+      type="delete"
+      title="Annuler la reservation"
+      message="Etes-vous sur de vouloir annuler cette reservation ? Cette action est irreversible."
+      confirmText="Annuler la reservation"
+      cancelText="Retour"
+      [isLoading]="cancelModal.isLoading"
+      (confirm)="confirmCancel()"
+      (cancel)="closeCancelModal()"
+    />
+  }
+}

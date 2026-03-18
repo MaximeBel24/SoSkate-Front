@@ -1,0 +1,189 @@
+// ============================================
+// BOOKINGS LIST - COMPONENT SPECIFIC STYLES
+// ============================================
+
+// --- Filtres par statut ---
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px 20px;
+
+  @media (max-width: 820px) {
+    padding: 0 16px 16px;
+    flex-wrap: wrap;
+  }
+}
+
+.filter-search {
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+  padding: 10px 14px 10px 38px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: border-color 0.15s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+
+  &::placeholder {
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  &:hover {
+    border-color: #ff6b35;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+  }
+}
+
+.filter-select {
+  padding: 10px 36px 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+
+  &:hover {
+    border-color: #ff6b35;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+  }
+
+  option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+}
+
+// --- Ligne annulée ---
+.row-cancelled {
+  opacity: 0.5;
+}
+
+// Cellule date
+.cell-date {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .date-primary {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .date-secondary {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+}
+
+// Cellule instructeur
+.cell-instructor {
+  .instructor-name {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+}
+
+// Nom de la prestation
+.service-name {
+  color: var(--color-premium);
+  font-weight: 500;
+}
+
+// Nom du spot
+.spot-name {
+  color: var(--text-secondary);
+}
+
+// Compteur de participants
+.participants-count {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+// Badge de statut booking
+.booking-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  &.status-open {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+
+    .status-dot {
+      background-color: #60a5fa;
+    }
+  }
+
+  &.status-full {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+
+    .status-dot {
+      background-color: #fbbf24;
+    }
+  }
+
+  &.status-confirmed {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+
+    .status-dot {
+      background-color: #34d399;
+    }
+  }
+
+  &.status-completed {
+    background-color: rgba(107, 114, 128, 0.15);
+    color: #9ca3af;
+
+    .status-dot {
+      background-color: #9ca3af;
+    }
+  }
+
+  &.status-cancelled {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+
+    .status-dot {
+      background-color: #f87171;
+    }
+  }
+}
