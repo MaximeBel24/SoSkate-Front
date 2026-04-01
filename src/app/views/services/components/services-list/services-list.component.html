@@ -70,6 +70,7 @@
             <app-cell-actions
               [editLink]="['..', service.id, 'edit']"
               (delete)="openDeleteModal(service.id, service.name)"
+              [showCancel]="false"
             />
           </tr>
         } @empty {

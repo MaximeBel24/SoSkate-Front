@@ -73,6 +73,7 @@
             <app-cell-actions
               [editLink]="['..', spot.id, 'edit']"
               (delete)="openDeleteModal(spot.id, spot.name)"
+              [showCancel]="false"
             />
           </tr>
         } @empty {
